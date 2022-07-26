@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "tell-me-where",
+    "slug": "tell-me-where",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
