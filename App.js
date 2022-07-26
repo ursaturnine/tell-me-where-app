@@ -4,6 +4,8 @@ import { initializeApp } from "firebase/app";
 // import { getFirestore } from "firebase/firestore/lite";
 import { collection, getDocs, getFirestore } from "firebase/firestore/lite";
 import { StyleSheet, Text, View, Button } from "react-native";
+import BottomTabNavigator from "./src/components/BottomTabNavigator";
+import { NavigationContainer } from "@react-navigation/native";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -28,11 +30,14 @@ export default function App() {
     console.log(restaurantList);
   };
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <Button title="Get Data From Database" onPress={GetData} />
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <View style={styles.container}>
+        <Text>Open up App.js to start working on your app!</Text>
+        <Button title="Get Data From Database" onPress={GetData} />
+        <BottomTabNavigator></BottomTabNavigator>
+        <StatusBar style="auto" />
+      </View>
+    </NavigationContainer>
   );
 }
 
