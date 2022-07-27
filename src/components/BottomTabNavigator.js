@@ -26,7 +26,7 @@ const BottomTabNavigator = () => {
             backgroundColor: "orange",
             borderRadius: 15,
             height: 90,
-            // ...styles.shadow,
+            ...styles.shadow,
           },
         ],
         headerStyle: {
@@ -39,18 +39,141 @@ const BottomTabNavigator = () => {
         },
       }}
     >
-      <BottomTab.Screen name="Home" component={HomeScreen}></BottomTab.Screen>
+      <BottomTab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                top: 10,
+              }}
+            >
+              <Image
+                source={require("../assets/images/home.png")}
+                resizeMode="contain"
+                style={{
+                  width: 25,
+                  height: 25,
+                  tintColor: focused ? "#B6D0E2" : "#E6E6FA",
+                }}
+              />
+              <Text
+                style={{ color: focused ? "#B6D0E2" : "#E6E6FA", fontSize: 12 }}
+              >
+                Home
+              </Text>
+            </View>
+          ),
+        }}
+      ></BottomTab.Screen>
       <BottomTab.Screen
         name="Search"
         component={SearchScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                top: 10,
+              }}
+            >
+              <Image
+                source={require("../assets/images/search.png")}
+                resizeMode="contain"
+                style={{
+                  width: 25,
+                  height: 25,
+                  tintColor: focused ? "#B6D0E2" : "#E6E6FA",
+                }}
+              />
+              <Text
+                style={{ color: focused ? "#B6D0E2" : "#E6E6FA", fontSize: 12 }}
+              >
+                Search
+              </Text>
+            </View>
+          ),
+        }}
       ></BottomTab.Screen>
       <BottomTab.Screen
         name="Friend Activity"
         component={FeedScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                top: 10,
+              }}
+            >
+              <Image
+                source={require("../assets/images/group-add.png")}
+                resizeMode="contain"
+                style={{
+                  width: 25,
+                  height: 25,
+                  tintColor: focused ? "#B6D0E2" : "#E6E6FA",
+                }}
+              />
+              <Text
+                style={{ color: focused ? "#B6D0E2" : "#E6E6FA", fontSize: 12 }}
+              >
+                Friends
+              </Text>
+            </View>
+          ),
+        }}
       ></BottomTab.Screen>
-      <BottomTab.Screen name="Add" component={AddScreen}></BottomTab.Screen>
+      <BottomTab.Screen
+        name="Add"
+        component={AddScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                top: 10,
+              }}
+            >
+              <Image
+                source={require("../assets/images/add.png")}
+                resizeMode="contain"
+                style={{
+                  width: 25,
+                  height: 25,
+                  tintColor: focused ? "#B6D0E2" : "#E6E6FA",
+                }}
+              />
+              <Text
+                style={{ color: focused ? "#B6D0E2" : "#E6E6FA", fontSize: 12 }}
+              >
+                Add
+              </Text>
+            </View>
+          ),
+        }}
+      ></BottomTab.Screen>
     </BottomTab.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  shadow: {
+    shadowColor: "#B6D0E2",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    opacity: 2.5,
+    shadowRadius: 3.5,
+    elevation: 5,
+  },
+});
 
 export default BottomTabNavigator;

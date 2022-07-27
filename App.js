@@ -31,12 +31,12 @@ export default function App() {
   };
   return (
     <NavigationContainer>
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Button title="Get Data From Database" onPress={GetData} />
-        <BottomTabNavigator></BottomTabNavigator>
-        <StatusBar style="auto" />
-      </View>
+      {/* <View style={styles.container}> */}
+      {/* <Text>Open up App.js to start working on your app!</Text> */}
+      {/* <Button title="Get Data From Database" onPress={GetData} /> */}
+      <BottomTabNavigator />
+      {/* <StatusBar style="auto" /> */}
+      {/* </View> */}
     </NavigationContainer>
   );
 }
