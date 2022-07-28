@@ -18,7 +18,7 @@ const HomeScreen = ({}) => {
       const response = await yelp.get("/search", {
         params: {
           limit: 50,
-          location: "Seattle, WA",
+          location: "Seattle",
         },
       });
       setRestaurants(response.data.businesses);
