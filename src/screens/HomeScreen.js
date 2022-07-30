@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Text,
   StyleSheet,
@@ -7,35 +7,19 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import yelp from "../api/yelp";
+import useRestaurants from "../hooks/useRestaurants";
+import ResultsList from "../components/ResultsList";
 
 const HomeScreen = ({}) => {
-  const [restaurants, setRestaurants] = useState([]);
-
-  //get request from Yelp
-  const searchApi = async () => {
-    try {
-      const response = await yelp.get("/search", {
-        params: {
-          limit: 50,
-          location: "Seattle",
-        },
-      });
-      setRestaurants(response.data.businesses);
-    } catch (err) {
-      console.log(`The yelp Api was not called:  ${err}`);
-    }
-  };
-
-  //grab search results when first rendered
-  useEffect(() => {
-    searchApi();
-  }, []);
-
+  const [errorMessage, restaurants] = useRestaurants();
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Home Screen/Feed</Text>
+      {errorMessage ? <Text> {errorMessage} </Text> : null}
       <Text>We have found {restaurants.length}</Text>
+      <ResultsList title="Cost Effective" />
+      <ResultsList title="Bit Pricier" />
+      <ResultsList title="Big Spender" />
     </View>
   );
 };
