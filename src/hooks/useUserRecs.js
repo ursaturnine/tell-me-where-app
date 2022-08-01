@@ -8,7 +8,8 @@ export default () => {
   //get request from Tell Me Where
   const searchApi = async () => {
     try {
-      const response = await tellmewhere.get("/recs");
+      const response = await tellmewhere.get("/users");
+      //list of dicts (users)
       setRecs(response.data);
       console.log(response.data);
     } catch (err) {
