@@ -6,21 +6,24 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import useRestaurants from "../hooks/useRestaurants";
 import ResultsList from "../components/ResultsList";
+import tellmewhere from "../api/tell-me-where-api";
+import useUserRecs from "../hooks/useUserRecs";
 
 const HomeScreen = ({}) => {
-  const [errorMessage, restaurants] = useRestaurants();
+  const [errorMessage, recs] = useUserRecs();
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Home Screen/Feed</Text>
-      {errorMessage ? <Text> {errorMessage} </Text> : null}
-      <Text>We have found {restaurants.length}</Text>
-      <ResultsList title="Cost Effective" />
-      <ResultsList title="Bit Pricier" />
-      <ResultsList title="Big Spender" />
-    </View>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={styles.container}>
+        <Text style={styles.header}>Home Screen/Feed</Text>
+        {errorMessage ? <Text> {errorMessage} </Text> : null}
+        <Text>User Recs: {recs}</Text>
+        <ResultsList title="User Recs" />
+      </View>
+    </ScrollView>
   );
 };
 
@@ -28,6 +31,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#e5e5e5",
+    alignItems: "center",
   },
   header: {
     fontSize: 32,
