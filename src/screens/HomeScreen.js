@@ -17,14 +17,22 @@ import BottomTabNavigator from "../components/BottomTabNavigator";
 const HomeScreen = ({}) => {
   const [errorMessage, recs] = useUserRecs();
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.container}>
-        <Text style={styles.header}>Home Screen/Feed</Text>
-        {errorMessage ? <Text> {errorMessage} </Text> : null}
-        <Text>User Recs: {recs}</Text>
-        <ResultsList title="User Recs" />
-      </View>
-    </ScrollView>
+    // <ScrollView showsVerticalScrollIndicator={false}>
+    <View style={styles.container}>
+      <Text style={styles.header}>Home Screen/Feed</Text>
+      {errorMessage ? <Text> {errorMessage} </Text> : null}
+      {/* <Text>User Recs: {recs}</Text> */}
+      <FlatList
+        data={recs}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={(rec) => rec.id}
+        renderItem={({ item }) => {
+          return <Text style={styles.bodyText}>{item.name}</Text>;
+        }}
+      />
+      <ResultsList title="User Recs" />
+    </View>
+    // </ScrollView>
   );
 };
 
