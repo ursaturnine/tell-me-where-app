@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import { Text, StyleSheet, View, Image } from "react-native";
 import InputForm from "../components/InputForm";
 import CustomButton from "../components/CustomButton";
+import { useNavigation } from "@react-navigation/native";
 
 const SignInScreen = () => {
+  const navigation = useNavigation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const onSignInPressed = () => {
     console.log("The Sign In Button Was Pressed");
+    navigation.navigate("Home");
   };
 
   return (

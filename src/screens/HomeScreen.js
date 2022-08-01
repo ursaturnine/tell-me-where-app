@@ -12,6 +12,7 @@ import useRestaurants from "../hooks/useRestaurants";
 import ResultsList from "../components/ResultsList";
 import tellmewhere from "../api/tell-me-where-api";
 import useUserRecs from "../hooks/useUserRecs";
+import BottomTabNavigator from "../components/BottomTabNavigator";
 
 const HomeScreen = ({}) => {
   const [errorMessage, recs] = useUserRecs();
