@@ -2,9 +2,19 @@ import React from "react";
 import { Text, StyleSheet, View, Image } from "react-native";
 
 const AddScreen = ({}) => {
+  const [city, setCity] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+
   return (
     <View style={styles.container}>
-      <Text style={styles.textStyle}>Add Rec Screen</Text>
+      <Text style={styles.textStyle}>Add a Recommendation</Text>
+      <InputForm placeholder="City" value={city} setValue={setCity} />
+      <InputForm
+        placeholder="Restaurant Name"
+        value={searchTerm}
+        setValue={setSearchTerm}
+      />
+      {/* <CustomButton text="Sign In" onPress={onSignInPressed} type="PRIMARY" /> */}
     </View>
   );
 };
