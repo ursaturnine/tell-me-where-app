@@ -23,7 +23,7 @@ const HomeScreen = ({}) => {
       <ScrollView>
         {users.map((user) => (
           <View key={user.id} style={styles.user_container}>
-            <Text style={styles.user_text}>{user.username}</Text>
+            <Text style={styles.user_text}>User: {user.username}</Text>
           </View>
         ))}
       </ScrollView>
@@ -45,14 +45,16 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   user_text: {
-    fontWeigt: "bold",
+    fontWeight: "bold",
   },
   user_container: {
+    flex: 1,
     backgroundColor: "#F99245",
     padding: 30,
     marginVertical: 10,
     borderRadius: 8,
     width: "50%",
+    marginLeft: 10,
   },
 });
 
