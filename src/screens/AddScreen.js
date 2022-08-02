@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, StyleSheet, View, Image } from "react-native";
+import CustomButton from "../components/CustomButton";
+import InputForm from "../components/InputForm";
 
 const AddScreen = ({}) => {
   const [city, setCity] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+
+  const onButtonPressed = () => {
+    console.log("The Button Was Pressed");
+  };
 
   return (
     <View style={styles.container}>
@@ -14,7 +20,11 @@ const AddScreen = ({}) => {
         value={searchTerm}
         setValue={setSearchTerm}
       />
-      {/* <CustomButton text="Sign In" onPress={onSignInPressed} type="PRIMARY" /> */}
+      <CustomButton
+        text="Add Recommendation"
+        onPress={onButtonPressed}
+        type="PRIMARY"
+      />
     </View>
   );
 };
@@ -23,6 +33,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#e5e5e5",
+    alignItems: "center",
   },
   textStyle: {
     fontSize: 30,
