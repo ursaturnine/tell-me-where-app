@@ -15,24 +15,20 @@ import useUserRecs from "../hooks/useUserRecs";
 import BottomTabNavigator from "../components/BottomTabNavigator";
 
 const HomeScreen = ({}) => {
-  const [errorMessage, recs] = useUserRecs();
+  const [errorMessage, users] = useUserRecs();
   return (
-    // <ScrollView showsVerticalScrollIndicator={false}>
     <View style={styles.container}>
       <Text style={styles.header}>Home Screen/Feed</Text>
       {errorMessage ? <Text> {errorMessage} </Text> : null}
-      {/* <Text>User Recs: {recs}</Text> */}
-      <FlatList
-        data={recs}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={(rec) => rec.id}
-        renderItem={({ item }) => {
-          return <Text style={styles.bodyText}>{item.name}</Text>;
-        }}
-      />
+      <ScrollView>
+        {users.map((user) => (
+          <View key={user.id} style={styles.user_container}>
+            <Text style={styles.user_text}>{user.username}</Text>
+          </View>
+        ))}
+      </ScrollView>
       <ResultsList title="User Recs" />
     </View>
-    // </ScrollView>
   );
 };
 
@@ -40,7 +36,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#e5e5e5",
-    alignItems: "center",
   },
   header: {
     fontSize: 32,
@@ -49,11 +44,15 @@ const styles = StyleSheet.create({
     marginTop: 40,
     marginLeft: 15,
   },
-  bodyText: {
-    marginVertical: 50,
+  user_text: {
+    fontWeigt: "bold",
   },
-  buttons: {
-    backgroundColor: "#7F00FF",
+  user_container: {
+    backgroundColor: "#F99245",
+    padding: 30,
+    marginVertical: 10,
+    borderRadius: 8,
+    width: "50%",
   },
 });
 
