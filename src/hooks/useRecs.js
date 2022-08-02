@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
 import tellMeWhereApi from "../api/tell-me-where-api";
-import { Text } from "react-native";
 import { AuthContext } from "../context/AuthContext";
 
 export default () => {
