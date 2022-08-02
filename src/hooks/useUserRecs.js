@@ -12,17 +12,6 @@ export default () => {
       const response = await tellmewhere.get("/users");
       //list of dicts (users)
       setUsers(response.data);
-      // setUsers(
-      //   response.data.map((resp) => {
-      //     return (
-      //       <Text key={resp.id}>
-      //         <Text>{resp.friends}</Text>
-      //         <Text>{resp.recs}</Text>
-      //         <Text>{resp.username}</Text>
-      //       </Text>
-      //     );
-      //   })
-      // );
     } catch (err) {
       setErrorMessage(`Tell Me Where Backend Api was not called:  ${err}`);
     }
