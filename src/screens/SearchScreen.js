@@ -1,10 +1,12 @@
 import React from "react";
 import { Text, StyleSheet, View, Image } from "react-native";
+import InputForm from "../components/InputForm";
 
 const SearchScreen = ({}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.textStyle}>Search Screen</Text>
+      <Text style={styles.header}>Search Screen</Text>
+      <InputForm placeholder="Search Restaurant..." />
     </View>
   );
 };
@@ -14,8 +16,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#e5e5e5",
   },
-  textStyle: {
-    fontSize: 30,
+  header: {
+    fontSize: 32,
     color: "#141414",
     fontWeight: "bold",
     marginTop: 40,
@@ -23,6 +25,9 @@ const styles = StyleSheet.create({
   },
   buttons: {
     backgroundColor: "#7F00FF",
+  },
+  input: {
+    borderBottomColor: "#B06500",
   },
 });
 

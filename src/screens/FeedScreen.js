@@ -59,13 +59,6 @@ const styles = StyleSheet.create({
     marginTop: 40,
     marginLeft: 15,
   },
-  textStyle: {
-    fontSize: 30,
-    color: "#141414",
-    fontWeight: "bold",
-    marginTop: 40,
-    marginLeft: 15,
-  },
   bodyText: {
     marginVertical: 50,
   },
