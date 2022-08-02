@@ -2,23 +2,37 @@ import React, { useState } from "react";
 import { Text, StyleSheet, View, Image } from "react-native";
 import CustomButton from "../components/CustomButton";
 import InputForm from "../components/InputForm";
+import tellMeWhereApi from "../api/tell-me-where-api";
 
 const AddScreen = ({}) => {
-  const [city, setCity] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
+  const [location, setLocation] = useState("");
+  const [search, setSearch] = useState("");
 
   const onButtonPressed = () => {
     console.log("The Button Was Pressed");
+    addRecApi();
+  };
+
+  const addRecApi = async () => {
+    try {
+      const response = await tellMeWhereApi.post("/users/1/recs", {
+        location,
+        search,
+      });
+      console.log(response.data);
+    } catch (err) {
+      console.log(`${err}`);
+    }
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.textStyle}>Add a Recommendation</Text>
-      <InputForm placeholder="City" value={city} setValue={setCity} />
+      <InputForm placeholder="City" value={location} setValue={setLocation} />
       <InputForm
         placeholder="Restaurant Name"
-        value={searchTerm}
-        setValue={setSearchTerm}
+        value={search}
+        setValue={setSearch}
       />
       <CustomButton
         text="Add Recommendation"
