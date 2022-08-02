@@ -3,15 +3,32 @@ import { Text, StyleSheet, View, Image } from "react-native";
 import InputForm from "../components/InputForm";
 import CustomButton from "../components/CustomButton";
 import { useNavigation } from "@react-navigation/native";
+import tellMeWhereApi from "../api/tell-me-where-api";
+import { AuthContext } from "../context/AuthContext";
 
 const SignInScreen = () => {
   const navigation = useNavigation();
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  // const [password, setPassword] = useState("");
 
   const onSignInPressed = () => {
     console.log("The Sign In Button Was Pressed");
-    navigation.navigate("Home");
+    logInApi();
+    // navigation.navigate("Home");
+  };
+
+  const logInApi = async () => {
+    try {
+      const response = await tellMeWhereApi.post("/users/usernames", {
+        username,
+      });
+      //list of dicts (users)
+      console.log(response.data);
+      userContext.username = response.data["user"]["username"];
+      console.log(`username is ${userContext.username}`);
+    } catch (err) {
+      console.log(`${err}`);
+    }
   };
 
   return (
@@ -22,12 +39,12 @@ const SignInScreen = () => {
         value={username}
         setValue={setUsername}
       />
-      <InputForm
+      {/* <InputForm
         placeholder="Password"
         value={password}
         setValue={setPassword}
         secureTextEntry={true}
-      />
+      /> */}
       <CustomButton text="Sign In" onPress={onSignInPressed} type="PRIMARY" />
     </View>
   );
