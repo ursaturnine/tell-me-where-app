@@ -24,7 +24,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginVertical: 10,
   },
-  input: {},
+  input: {
+    marginLeft: 15,
+  },
 });
 
 export default InputForm;
