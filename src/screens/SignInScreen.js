@@ -1,36 +1,15 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import { Text, StyleSheet, View, Image } from "react-native";
 import InputForm from "../components/InputForm";
 import CustomButton from "../components/CustomButton";
-import tellMeWhereApi from "../api/tell-me-where-api";
-import { AuthContext } from "../context/AuthContext";
+import useLogin from "../hooks/useLogin";
 
-const SignInScreen = () => {
-  const { username } = useContext(AuthContext);
-  const { setUsername } = useContext(AuthContext);
-  const { userID } = useContext(AuthContext);
-  const { setUserID } = useContext(AuthContext);
+const SignInScreen = ({}) => {
+  const [username, setUsername, logInApi] = useLogin();
 
   const onSignInPressed = () => {
     console.log("The Sign In Button Was Pressed");
     logInApi();
-    // navigation.navigate("Home");
-  };
-
-  const logInApi = async () => {
-    try {
-      const response = await tellMeWhereApi.post("/users/usernames", {
-        username,
-      });
-      //list of dicts (users)
-      console.log(response.data);
-      const usernameResponse = response.data["user"]["username"];
-      const userIDResponse = response.data["user"]["id"];
-      setUsername(usernameResponse);
-      setUserID(userIDResponse);
-    } catch (err) {
-      console.log(`${err}`);
-    }
   };
 
   return (
