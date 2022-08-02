@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, StyleSheet, View, Image } from "react-native";
 import InputForm from "../components/InputForm";
 import CustomButton from "../components/CustomButton";
 import useLogin from "../hooks/useLogin";
+import tellMeWhereApi from "../api/tell-me-where-api";
 
 const SignInScreen = ({}) => {
   const [username, setUsername, logInApi] = useLogin();
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const onSignInPressed = () => {
+  const onSignInPressed = async () => {
     console.log("The Sign In Button Was Pressed");
-    logInApi();
+    const response = await tellMeWhereApi.get("/users");
+
+    response.data.map((resp) => {
+      if (username === resp.username) {
+        return logInApi();
+      } else {
+        setErrorMessage("");
+      }
+    });
+
+    return setErrorMessage(`User ${username} does not exist`);
   };
 
   return (
@@ -27,6 +39,7 @@ const SignInScreen = ({}) => {
         secureTextEntry={true}
       /> */}
       <CustomButton text="Sign In" onPress={onSignInPressed} type="PRIMARY" />
+      <Text>{errorMessage ? errorMessage : ""}</Text>
     </View>
   );
 };

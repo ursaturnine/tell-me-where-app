@@ -13,14 +13,12 @@ export default () => {
       const response = await tellMeWhereApi.post("/users/usernames", {
         username,
       });
-      //list of dicts (users)
-      console.log(response.data);
       const usernameResponse = response.data["user"]["username"];
       const userIDResponse = response.data["user"]["id"];
       setUsername(usernameResponse);
       setUserID(userIDResponse);
     } catch (err) {
-      console.log(`${err}`);
+      console.log(err);
     }
   };
   return [username, setUsername, logInApi];
