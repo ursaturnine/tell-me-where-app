@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Text, StyleSheet, View, Image } from "react-native";
 import CustomButton from "../components/CustomButton";
 import InputForm from "../components/InputForm";
 import tellMeWhereApi from "../api/tell-me-where-api";
+import { AuthContext } from "../context/AuthContext";
 
 const AddScreen = ({}) => {
   const [location, setLocation] = useState("");
   const [search, setSearch] = useState("");
-
+  const { userID } = useContext(AuthContext);
+  console.log(userID);
   const onButtonPressed = () => {
     console.log("The Button Was Pressed");
     addRecApi();
@@ -15,7 +17,7 @@ const AddScreen = ({}) => {
 
   const addRecApi = async () => {
     try {
-      const response = await tellMeWhereApi.post("/users/1/recs", {
+      const response = await tellMeWhereApi.post(`/users/${userID}/recs`, {
         location,
         search,
       });

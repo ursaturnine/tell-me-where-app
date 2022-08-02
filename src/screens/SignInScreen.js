@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Text, StyleSheet, View, Image } from "react-native";
 import InputForm from "../components/InputForm";
 import CustomButton from "../components/CustomButton";
-import { useNavigation } from "@react-navigation/native";
 import tellMeWhereApi from "../api/tell-me-where-api";
 import { AuthContext } from "../context/AuthContext";
 
 const SignInScreen = () => {
-  const navigation = useNavigation();
-  const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
+  const { username } = useContext(AuthContext);
+  const { setUsername } = useContext(AuthContext);
+  const { userID } = useContext(AuthContext);
+  const { setUserID } = useContext(AuthContext);
 
   const onSignInPressed = () => {
     console.log("The Sign In Button Was Pressed");
@@ -24,8 +24,10 @@ const SignInScreen = () => {
       });
       //list of dicts (users)
       console.log(response.data);
-      userContext.username = response.data["user"]["username"];
-      console.log(`username is ${userContext.username}`);
+      const usernameResponse = response.data["user"]["username"];
+      const userIDResponse = response.data["user"]["id"];
+      setUsername(usernameResponse);
+      setUserID(userIDResponse);
     } catch (err) {
       console.log(`${err}`);
     }
