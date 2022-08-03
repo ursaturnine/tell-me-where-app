@@ -15,10 +15,14 @@ const SignInScreen = () => {
     logInApi();
   };
 
+  // .get('https://weather-report-proxy-lili4x4.herokuapp.com/location', {
+  //     params: { q: `${location}` },
+  //   })
+
   const logInApi = async () => {
     try {
-      const response = await tellMeWhereApi.post("/users/usernames", {
-        username,
+      const response = await tellMeWhereApi.get("/users/usernames", {
+        params: { username: `${username}` },
       });
       console.log(response.data);
       const usernameResponse = response.data["user"]["username"];
