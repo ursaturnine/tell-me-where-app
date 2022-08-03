@@ -2,22 +2,29 @@ import React, { useState, useContext } from "react";
 import { Text, StyleSheet, View, Image } from "react-native";
 import InputForm from "../components/InputForm";
 import CustomButton from "../components/CustomButton";
+import useLogin from "../hooks/useLogin";
 import tellMeWhereApi from "../api/tell-me-where-api";
 import { AuthContext } from "../context/AuthContext";
 
-const SignInScreen = () => {
+const SignInScreen = ({}) => {
   const { username } = useContext(AuthContext);
   const { setUsername } = useContext(AuthContext);
   const { userID } = useContext(AuthContext);
   const { setUserID } = useContext(AuthContext);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const onSignInPressed = () => {
-    logInApi();
+  const onSignInPressed = async () => {
+    const response = await tellMeWhereApi.get("/users");
+    response.data.map((resp) => {
+      if (username === resp.username) {
+        console.log("im inside error handling");
+        return logInApi();
+      } else {
+        setErrorMessage("");
+      }
+    });
+    setErrorMessage(`User ${username} does not exist `);
   };
-
-  // .get('https://weather-report-proxy-lili4x4.herokuapp.com/location', {
-  //     params: { q: `${location}` },
-  //   })
 
   const logInApi = async () => {
     try {
@@ -49,6 +56,7 @@ const SignInScreen = () => {
         secureTextEntry={true}
       /> */}
       <CustomButton text="Sign In" onPress={onSignInPressed} type="PRIMARY" />
+      <Text>{errorMessage ? errorMessage : ""}</Text>
     </View>
   );
 };

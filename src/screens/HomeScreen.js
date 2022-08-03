@@ -1,18 +1,7 @@
 import React from "react";
-import {
-  Text,
-  StyleSheet,
-  View,
-  Image,
-  FlatList,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
-import useRestaurants from "../hooks/useRestaurants";
+import { Text, StyleSheet, View, ScrollView } from "react-native";
 import ResultsList from "../components/ResultsList";
-import tellmewhere from "../api/tell-me-where-api";
 import useUserRecs from "../hooks/useUserRecs";
-import BottomTabNavigator from "../components/BottomTabNavigator";
 
 const HomeScreen = ({}) => {
   const [errorMessage, users] = useUserRecs();
