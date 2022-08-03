@@ -26,9 +26,6 @@ const styles = StyleSheet.create({
   buttons: {
     backgroundColor: "#7F00FF",
   },
-  input: {
-    borderBottomColor: "#B06500",
-  },
 });
 
 export default SearchScreen;
