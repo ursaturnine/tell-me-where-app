@@ -1,27 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Text, StyleSheet, View, Image } from "react-native";
 import InputForm from "../components/InputForm";
 import CustomButton from "../components/CustomButton";
 import useLogin from "../hooks/useLogin";
 import tellMeWhereApi from "../api/tell-me-where-api";
+import { AuthContext } from "../context/AuthContext";
 
 const SignInScreen = ({}) => {
-  const [username, setUsername, logInApi] = useLogin();
+  const { username } = useContext(AuthContext);
+  const { setUsername } = useContext(AuthContext);
+  const { userID } = useContext(AuthContext);
+  const { setUserID } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState("");
 
   const onSignInPressed = async () => {
-    console.log("The Sign In Button Was Pressed");
     const response = await tellMeWhereApi.get("/users");
-
     response.data.map((resp) => {
       if (username === resp.username) {
+        console.log("im inside error handling");
         return logInApi();
       } else {
         setErrorMessage("");
       }
     });
+    setErrorMessage(`User ${username} does not exist `);
+  };
 
-    return setErrorMessage(`User ${username} does not exist`);
+  const logInApi = async () => {
+    try {
+      const response = await tellMeWhereApi.get("/users/usernames", {
+        params: { username: `${username}` },
+      });
+      console.log(response.data);
+      const usernameResponse = response.data["user"]["username"];
+      const userIDResponse = response.data["user"]["id"];
+      setUsername(usernameResponse);
+      setUserID(userIDResponse);
+    } catch (err) {
+      console.log(`${err}`);
+    }
   };
 
   return (
