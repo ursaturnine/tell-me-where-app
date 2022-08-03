@@ -2,10 +2,10 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
 import SearchScreen from "../screens/SearchScreen";
-import FeedScreen from "../screens/FeedScreen";
+import FriendsScreen from "../screens/FriendsScreen";
 import AddScreen from "../screens/AddScreen";
-import SignInScreen from "../screens/SignInScreen";
-import SignUpScreen from "../screens/SignUpScreen";
+import { SignOutScreen } from "../screens/SignOutScreen";
+
 import { Text, StyleSheet, View, Button, Image } from "react-native";
 
 const BottomTab = createBottomTabNavigator();
@@ -41,7 +41,7 @@ const BottomTabNavigator = () => {
         },
       }}
     >
-      <BottomTab.Screen
+      {/* <BottomTab.Screen
         name="Home"
         component={HomeScreen}
         options={{
@@ -70,7 +70,7 @@ const BottomTabNavigator = () => {
             </View>
           ),
         }}
-      ></BottomTab.Screen>
+      ></BottomTab.Screen> */}
       <BottomTab.Screen
         name="Search"
         component={SearchScreen}
@@ -102,8 +102,8 @@ const BottomTabNavigator = () => {
         }}
       ></BottomTab.Screen>
       <BottomTab.Screen
-        name="Friend Activity"
-        component={FeedScreen}
+        name="Friends"
+        component={FriendsScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
@@ -162,8 +162,8 @@ const BottomTabNavigator = () => {
         }}
       ></BottomTab.Screen>
       <BottomTab.Screen
-        name="Sign In"
-        component={SignInScreen}
+        name="Log Out"
+        component={SignOutScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
@@ -191,7 +191,7 @@ const BottomTabNavigator = () => {
           ),
         }}
       ></BottomTab.Screen>
-      <BottomTab.Screen
+      {/* <BottomTab.Screen
         name="Sign Up"
         component={SignUpScreen}
         options={{
@@ -220,7 +220,7 @@ const BottomTabNavigator = () => {
             </View>
           ),
         }}
-      ></BottomTab.Screen>
+      ></BottomTab.Screen> */}
     </BottomTab.Navigator>
   );
 };

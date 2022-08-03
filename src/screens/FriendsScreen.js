@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import useUserRecs from "../hooks/useUserRecs";
 
-const FeedScreen = ({}) => {
+const FriendsScreen = ({}) => {
   // const friends = [
   //   { name: "Tyrah" },
   //   { name: "Lili" },
@@ -76,4 +76,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FeedScreen;
+export default FriendsScreen;
