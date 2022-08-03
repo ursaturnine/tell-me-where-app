@@ -6,6 +6,7 @@ import {
   Image,
   FlatList,
   ScrollView,
+  Button,
 } from "react-native";
 import useFriendData from "../hooks/useFriendData";
 import { AuthContext } from "../context/AuthContext";
@@ -50,7 +51,23 @@ const FriendsScreen = ({}) => {
     setFriendSearch("");
   };
 
-  console.log(`friend data before is ${friendData}`);
+  const deleteFriendApi = async (id) => {
+    try {
+      const response = await tellMeWhereApi.patch(`/users/${userID}/unfollow`, {
+        id,
+      });
+      const friendDataResponse = response.data["user"]["friends"];
+      setFriendData(friendDataResponse);
+    } catch (err) {
+      console.log(`${err}`);
+    }
+  };
+
+  const onUnfollowButtonPressed = (friendID) => {
+    console.log("The Unfollow Button Was Pressed");
+    console.log(`friend id is ${friendID}`);
+    deleteFriendApi(friendID);
+  };
 
   return (
     <View style={styles.container}>
@@ -70,23 +87,15 @@ const FriendsScreen = ({}) => {
         {friendData.map((friend) => (
           <View key={friend.id} style={styles.user_container}>
             <Text style={styles.user_text}>{friend.username}</Text>
+            <Button
+              text="X"
+              onPress={() => onUnfollowButtonPressed(friend.id)}
+              title="X"
+              // type="PRIMARY"
+            />
           </View>
         ))}
       </ScrollView>
-      {/* <ScrollView>
-        {friendData.map((friend) => (
-          <View key={friendData.id} style={styles.user_container}>
-            <Text style={styles.user_text}>{friend.username}</Text>
-          </View>
-        ))}
-      </ScrollView> */}
-      {/* <FlatList
-        data={friendData}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={(friend) => friend.username}
-        renderItem={({ item }) => {
-          return <Text style={styles.bodyText}>{item.name}</Text>;
-        }} */}
     </View>
   );
   // );
@@ -96,6 +105,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#e5e5e5",
+    // alignItems: "center",
   },
   header: {
     fontSize: 32,
