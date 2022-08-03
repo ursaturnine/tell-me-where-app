@@ -12,9 +12,7 @@ const SignInScreen = () => {
   const { setUserID } = useContext(AuthContext);
 
   const onSignInPressed = () => {
-    console.log("The Sign In Button Was Pressed");
     logInApi();
-    // navigation.navigate("Home");
   };
 
   const logInApi = async () => {
@@ -22,7 +20,6 @@ const SignInScreen = () => {
       const response = await tellMeWhereApi.post("/users/usernames", {
         username,
       });
-      //list of dicts (users)
       console.log(response.data);
       const usernameResponse = response.data["user"]["username"];
       const userIDResponse = response.data["user"]["id"];

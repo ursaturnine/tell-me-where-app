@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { NavigationContainer } from "@react-navigation/native";
 
-export const SignOutScreen = () => {
+export const SignOutScreen = ({ navigation }) => {
   const { username } = useContext(AuthContext);
   const { setUsername } = useContext(AuthContext);
   const { userID } = useContext(AuthContext);
@@ -10,5 +10,6 @@ export const SignOutScreen = () => {
 
   setUsername("");
   setUserID(null);
-  navigation.navigate("Sign In");
+
+  return null;
 };

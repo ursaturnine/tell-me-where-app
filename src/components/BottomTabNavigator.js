@@ -162,7 +162,7 @@ const BottomTabNavigator = () => {
         }}
       ></BottomTab.Screen>
       <BottomTab.Screen
-        name="Log Out"
+        name="LogOut"
         component={SignOutScreen}
         options={{
           tabBarIcon: ({ focused }) => (
@@ -185,7 +185,7 @@ const BottomTabNavigator = () => {
               <Text
                 style={{ color: focused ? "#B6D0E2" : "#E6E6FA", fontSize: 12 }}
               >
-                Sign In
+                Log Out
               </Text>
             </View>
           ),
