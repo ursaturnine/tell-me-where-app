@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   Text,
   StyleSheet,
@@ -7,41 +7,86 @@ import {
   FlatList,
   ScrollView,
 } from "react-native";
-import useUserRecs from "../hooks/useUserRecs";
+import useFriendData from "../hooks/useFriendData";
+import { AuthContext } from "../context/AuthContext";
+import tellMeWhereApi from "../api/tell-me-where-api";
+import CustomButton from "../components/CustomButton";
+import InputForm from "../components/InputForm";
 
 const FriendsScreen = ({}) => {
-  // const friends = [
-  //   { name: "Tyrah" },
-  //   { name: "Lili" },
-  //   { name: "Emily" },
-  //   { name: "Ashley" },
-  //   { name: "Shayla" },
-  //   { name: "Ivana" },
-  // ];
-  // return (
-  // <View style={styles.container}>
-  //   <Text style={styles.textStyle}>Friends</Text>
-  //   {/* <FlatList
-  //     data={friends}
-  //     showsVerticalScrollIndicator={false}
-  //     keyExtractor={(friend) => friend.name}
-  //     renderItem={({ item }) => {
-  //       return <Text style={styles.bodyText}>{item.name}</Text>;
-  //     }}
-  //   /> */}
-  // </View>
-  const [errorMessage, users] = useUserRecs();
+  const { userID } = useContext(AuthContext);
+  const [friendSearch, setFriendSearch] = useState("");
+  const [errorMessage, friendData, setFriendData] = useFriendData();
+
+  const searchFriendApi = async () => {
+    try {
+      const response = await tellMeWhereApi.get("/users/usernames", {
+        params: { username: `${friendSearch}` },
+      });
+      console.log(response.data);
+      const userIDResponse = response.data["user"]["id"];
+      return userIDResponse;
+    } catch (err) {
+      console.log(`${err}`);
+    }
+  };
+
+  const addFriendApi = async (id) => {
+    try {
+      const response = await tellMeWhereApi.patch(`/users/${userID}/follow`, {
+        id,
+      });
+      const friendDataResponse = response.data["user"]["friends"];
+      setFriendData(friendDataResponse);
+    } catch (err) {
+      console.log(`${err}`);
+    }
+  };
+
+  const onButtonPressed = async () => {
+    console.log("The Button Was Pressed");
+    const friendId = await searchFriendApi();
+    addFriendApi(friendId);
+    setFriendSearch("");
+  };
+
+  console.log(`friend data before is ${friendData}`);
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Friends</Text>
       {errorMessage ? <Text> {errorMessage} </Text> : null}
+      <InputForm
+        placeholder="Username"
+        value={friendSearch}
+        setValue={setFriendSearch}
+      />
+      <CustomButton
+        text="Add Friend"
+        onPress={onButtonPressed}
+        type="PRIMARY"
+      />
       <ScrollView>
-        {users.map((user) => (
-          <View key={user.id} style={styles.user_container}>
-            <Text style={styles.user_text}>User: {user.friends}</Text>
+        {friendData.map((friend) => (
+          <View key={friend.id} style={styles.user_container}>
+            <Text style={styles.user_text}>{friend.username}</Text>
           </View>
         ))}
       </ScrollView>
+      {/* <ScrollView>
+        {friendData.map((friend) => (
+          <View key={friendData.id} style={styles.user_container}>
+            <Text style={styles.user_text}>{friend.username}</Text>
+          </View>
+        ))}
+      </ScrollView> */}
+      {/* <FlatList
+        data={friendData}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={(friend) => friend.username}
+        renderItem={({ item }) => {
+          return <Text style={styles.bodyText}>{item.name}</Text>;
+        }} */}
     </View>
   );
   // );
