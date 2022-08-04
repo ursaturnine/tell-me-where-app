@@ -20,12 +20,13 @@ const SearchScreen = ({}) => {
 
   // get friends recs with matching locations by ids
   const getRecsByLocation = (friends) => {
-    const friend_recs = friends.map((friend) => {
-      const resp = tellMeWhereApi.get(`users/${friend}`);
-      console.log(resp);
-      // return resp.data.user.recs;
-    });
-    console.log(friend_recs);
+    const friend_recs = Promise.all(
+      friends.map((friend) => {
+        return tellMeWhereApi.get(`users/${friend}`);
+      })
+    );
+    // const all_friend_recs = friend_recs;
+    // console.log(all_friend_recs);
   };
 
   return (
