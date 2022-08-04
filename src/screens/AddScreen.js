@@ -13,14 +13,19 @@ import useRecs from "../hooks/useRecs";
 import useRecsDisplay from "../hooks/useRecsDisplay";
 
 const AddScreen = ({}) => {
-  const [location, setLocation, search, setSearch, addRecApi] = useRecs();
-  const [recs] = useRecsDisplay();
+  const [location, setLocation, search, setSearch, addRecApi, recData] =
+    useRecs();
+  const [recs, setRecs] = useRecsDisplay();
   // console.log(`Inside AddScreen: ${recs}`);
   // console.log(recs.recs);
 
-  const onButtonPressed = () => {
+  const onButtonPressed = async () => {
     console.log("The Button Was Pressed");
-    addRecApi();
+    const newRec = await addRecApi();
+    setSearch("");
+    setLocation("");
+    const newRecData = [...recs, newRec];
+    setRecs(newRecData);
   };
 
   return (

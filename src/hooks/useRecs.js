@@ -13,6 +13,8 @@ export default () => {
         search,
       });
       console.log(response.data);
+      const recData = response.data["rec"];
+      return recData;
     } catch (err) {
       console.log(`${err}`);
     }
