@@ -17,7 +17,6 @@ const SignInScreen = ({}) => {
     const response = await tellMeWhereApi.get("/users");
     response.data.map((resp) => {
       if (username === resp.username) {
-        console.log("im inside error handling");
         return logInApi();
       } else {
         setErrorMessage("");
