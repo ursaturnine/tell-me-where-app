@@ -10,6 +10,7 @@ const SearchScreen = ({}) => {
   const [getUserRecs] = useRecsDisplay();
   const [location, setLocation] = useState("");
   const { userID } = useContext(AuthContext);
+  const [friendRecs, setFriendRecs] = useState([]);
 
   //get friends ids
   const getFriendsIds = async () => {
@@ -19,14 +20,17 @@ const SearchScreen = ({}) => {
   };
 
   // get friends recs with matching locations by ids
-  const getRecsByLocation = (friends) => {
+  const getRecsByLocation = async (friends) => {
+    console.log(friends);
     const friend_recs = Promise.all(
-      friends.map((friend) => {
-        return tellMeWhereApi.get(`users/${friend}`);
+      friends.map(async (friend) => {
+        console.log(friend);
+        let resp = await tellMeWhereApi.get(`users/${friend}`);
+        return resp.data.user.recs;
       })
     );
-    // const all_friend_recs = friend_recs;
-    // console.log(all_friend_recs);
+    const all_friend_recs = await friend_recs;
+    console.log(all_friend_recs);
   };
 
   return (
