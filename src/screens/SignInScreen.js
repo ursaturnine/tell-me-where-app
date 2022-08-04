@@ -1,8 +1,7 @@
 import React, { useState, useContext } from "react";
-import { Text, StyleSheet, View, Image } from "react-native";
+import { Text, StyleSheet, View } from "react-native";
 import InputForm from "../components/InputForm";
 import CustomButton from "../components/CustomButton";
-import useLogin from "../hooks/useLogin";
 import tellMeWhereApi from "../api/tell-me-where-api";
 import { AuthContext } from "../context/AuthContext";
 
