@@ -17,7 +17,8 @@ import InputForm from "../components/InputForm";
 const FriendsScreen = ({}) => {
   const { userID } = useContext(AuthContext);
   const [friendSearch, setFriendSearch] = useState("");
-  const [errorMessage, friendData, setFriendData] = useFriendData();
+  const [errorMessage, friendData, setFriendData, setErrorMessage] =
+    useFriendData();
 
   const searchFriendApi = async () => {
     try {
@@ -41,11 +42,11 @@ const FriendsScreen = ({}) => {
       setFriendData(friendDataResponse);
     } catch (err) {
       console.log(`${err}`);
+      setErrorMessage(err);
     }
   };
 
   const onButtonPressed = async () => {
-    console.log("The Button Was Pressed");
     const friendId = await searchFriendApi();
     addFriendApi(friendId);
     setFriendSearch("");
