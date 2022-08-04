@@ -88,11 +88,10 @@ const FriendsScreen = ({}) => {
         {friendData.map((friend) => (
           <View key={friend.id} style={styles.user_container}>
             <Text style={styles.user_text}>{friend.username}</Text>
-            <Button
-              text="X"
+            <CustomButton
+              text="unfollow"
               onPress={() => onUnfollowButtonPressed(friend.id)}
-              title="X"
-              // type="PRIMARY"
+              type="TERTIARY"
             />
           </View>
         ))}
