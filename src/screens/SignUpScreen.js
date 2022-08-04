@@ -3,17 +3,45 @@ import { Text, StyleSheet, View, Image } from "react-native";
 import InputForm from "../components/InputForm";
 import CustomButton from "../components/CustomButton";
 import { useNavigation } from "@react-navigation/native";
+import tellMeWhereApi from "../api/tell-me-where-api";
 
 const SignUpScreen = () => {
   const navigation = useNavigation();
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [passwordRepeat, setPasswordRepeat] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const onRegisterPressed = () => {
+  const registerApi = async () => {
+    try {
+      const response = await tellMeWhereApi.post("/users", {
+        username,
+      });
+      console.log(response.data);
+      navigation.navigate("SignIn");
+    } catch (err) {
+      console.log(`${err}`);
+    }
+  };
+
+  const onRegisterPressed = async () => {
     console.log("The Register Button Was Pressed");
-    navigation.navigate("/SignIn");
+    if (username != "") {
+      let userFound = false;
+      const response = await tellMeWhereApi.get("/users");
+      response.data.map((resp) => {
+        let user = resp["username"];
+        if (user === username) {
+          userFound = true;
+        }
+      });
+      if (userFound === false) {
+        console.log("user doesn't exist yet");
+        registerApi();
+        // return logInApi();
+      } else {
+        console.log("Username is taken");
+        setErrorMessage("Username is taken");
+      }
+    }
   };
 
   const onTermsOfUsePressed = () => {
@@ -25,8 +53,7 @@ const SignUpScreen = () => {
   };
 
   const onSignInPressed = () => {
-    console.log("Sign In Was Pressed");
-    navigation.navigate("/SignIn");
+    navigation.navigate("SignIn");
   };
 
   return (
@@ -37,7 +64,7 @@ const SignUpScreen = () => {
         value={username}
         setValue={setUsername}
       />
-      <InputForm placeholder="Email" value={email} setValue={setEmail} />
+      {/* <InputForm placeholder="Email" value={email} setValue={setEmail} />
       <InputForm
         placeholder="Password"
         value={password}
@@ -49,7 +76,8 @@ const SignUpScreen = () => {
         value={passwordRepeat}
         setValue={setPasswordRepeat}
         secureTextEntry
-      />
+      /> */}
+      <Text>{errorMessage ? errorMessage : ""}</Text>
       <CustomButton
         text="Register"
         onPress={onRegisterPressed}

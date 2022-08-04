@@ -4,6 +4,7 @@ import InputForm from "../components/InputForm";
 import CustomButton from "../components/CustomButton";
 import tellMeWhereApi from "../api/tell-me-where-api";
 import { AuthContext } from "../context/AuthContext";
+import { useNavigation } from "@react-navigation/native";
 
 const SignInScreen = ({}) => {
   const { username } = useContext(AuthContext);
@@ -11,9 +12,15 @@ const SignInScreen = ({}) => {
   const { userID } = useContext(AuthContext);
   const { setUserID } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState("");
+  const navigation = useNavigation();
 
   const onSignInPressed = async () => {
     return logInApi();
+  };
+
+  const onSignUpPressed = () => {
+    console.log("Sign In Was Pressed");
+    navigation.navigate("SignUp");
   };
 
   const logInApi = async () => {
@@ -52,6 +59,11 @@ const SignInScreen = ({}) => {
       /> */}
       <CustomButton text="Sign In" onPress={onSignInPressed} type="PRIMARY" />
       <Text>{errorMessage ? errorMessage : ""}</Text>
+      <CustomButton
+        text="Don't Have An Account? Sign Up"
+        onPress={onSignUpPressed}
+        type="TERTIARY"
+      />
     </View>
   );
 };
