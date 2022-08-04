@@ -13,16 +13,7 @@ const SignInScreen = ({}) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const onSignInPressed = async () => {
-    const response = await tellMeWhereApi.get("/users");
-    response.data.map((resp) => {
-      if (username === resp.username) {
-        console.log("im inside error handling");
-        return logInApi();
-      } else {
-        setErrorMessage("");
-      }
-    });
-    setErrorMessage(`User ${username} does not exist `);
+    return logInApi();
   };
 
   const logInApi = async () => {
@@ -37,6 +28,11 @@ const SignInScreen = ({}) => {
       setUserID(userIDResponse);
     } catch (err) {
       console.log(`${err}`);
+      if (userID === null) {
+        setErrorMessage(`User ${username} does not exist `);
+      } else {
+        setErrorMessage(`Error: ${err}`);
+      }
     }
   };
 
