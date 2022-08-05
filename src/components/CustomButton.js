@@ -23,7 +23,9 @@ const styles = StyleSheet.create({
   container_PRIMARY: {
     backgroundColor: "#F2A337",
   },
-  container_TERTIARY: {},
+  container_TERTIARY: {
+    width: "100%",
+  },
   text_PRIMARY: {
     fontWeight: "bold",
     color: "#white",

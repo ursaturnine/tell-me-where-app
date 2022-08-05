@@ -5,6 +5,7 @@ import CustomButton from "../components/CustomButton";
 import tellMeWhereApi from "../api/tell-me-where-api";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
+import { useFonts } from "expo-font";
 
 const SignInScreen = ({}) => {
   const { username } = useContext(AuthContext);
@@ -13,6 +14,14 @@ const SignInScreen = ({}) => {
   const { setUserID } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState("");
   const navigation = useNavigation();
+
+  const [loaded] = useFonts({
+    DancingScript: require("../assets/fonts/DancingScript.ttf"),
+  });
+
+  if (!loaded) {
+    return null;
+  }
 
   const onSignInPressed = async () => {
     return logInApi();
@@ -45,6 +54,7 @@ const SignInScreen = ({}) => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.titleStyle}>tell me where</Text>
       <Text style={styles.textStyle}>Sign In</Text>
       <InputForm
         placeholder="Username"
@@ -76,6 +86,14 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     fontSize: 30,
+    color: "#141414",
+    fontWeight: "bold",
+    marginTop: 40,
+    marginLeft: 15,
+  },
+  titleStyle: {
+    fontSize: 55,
+    fontFamily: "DancingScript",
     color: "#141414",
     fontWeight: "bold",
     marginTop: 40,

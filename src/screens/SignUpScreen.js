@@ -58,6 +58,7 @@ const SignUpScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.titleStyle}>tell me where</Text>
       <Text style={styles.textStyle}>Create An Account</Text>
       <InputForm
         placeholder="Username"
@@ -118,6 +119,14 @@ const styles = StyleSheet.create({
   },
   link: {
     color: "#FF4848",
+  },
+  titleStyle: {
+    fontSize: 55,
+    fontFamily: "DancingScript",
+    color: "#141414",
+    fontWeight: "bold",
+    marginTop: 40,
+    marginLeft: 15,
   },
 });
 
