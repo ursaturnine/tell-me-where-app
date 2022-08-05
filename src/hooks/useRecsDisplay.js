@@ -20,5 +20,5 @@ export default () => {
   useEffect(() => {
     getUserRecs();
   }, []);
-  return [recs, setRecs];
+  return [recs, setRecs, getUserRecs];
 };

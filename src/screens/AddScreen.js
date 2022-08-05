@@ -11,11 +11,12 @@ import CustomButton from "../components/CustomButton";
 import InputForm from "../components/InputForm";
 import useRecs from "../hooks/useRecs";
 import useRecsDisplay from "../hooks/useRecsDisplay";
+import tellMeWhereApi from "../api/tell-me-where-api";
 
 const AddScreen = ({}) => {
   const [location, setLocation, search, setSearch, addRecApi, recData] =
     useRecs();
-  const [recs, setRecs] = useRecsDisplay();
+  const [recs, setRecs, getUserRecs] = useRecsDisplay();
   // console.log(`Inside AddScreen: ${recs}`);
   // console.log(recs.recs);
 
@@ -26,6 +27,22 @@ const AddScreen = ({}) => {
     setLocation("");
     const newRecData = [...recs, newRec];
     setRecs(newRecData);
+  };
+
+  const deleteRecApi = async (id) => {
+    try {
+      const response = await tellMeWhereApi.delete(`/recs/${id}`);
+      console.log(response);
+    } catch (err) {
+      console.log(`${err}`);
+    }
+  };
+
+  const onDeleteButtonPressed = async (recID) => {
+    console.log("The Delete Button Was Pressed");
+    console.log(`rec id is ${recID}`);
+    const response = await deleteRecApi(recID);
+    getUserRecs();
   };
 
   return (
@@ -60,6 +77,11 @@ const AddScreen = ({}) => {
                   {rec.category3},
                 </Text>
                 <Text style={styles.user_text}> {rec.price}</Text>
+                <CustomButton
+                  text="X"
+                  onPress={() => onDeleteButtonPressed(rec.id)}
+                  type="TERTIARY"
+                />
               </View>
             </View>
           ))}
