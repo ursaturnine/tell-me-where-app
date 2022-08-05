@@ -28,7 +28,6 @@ const SignInScreen = ({}) => {
       const response = await tellMeWhereApi.get("/users/usernames", {
         params: { username: `${username}` },
       });
-      console.log(response.data);
       const usernameResponse = response.data["user"]["username"];
       const userIDResponse = response.data["user"]["id"];
       setUsername(usernameResponse);
