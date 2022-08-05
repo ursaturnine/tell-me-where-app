@@ -14,13 +14,18 @@ import useRecsDisplay from "../hooks/useRecsDisplay";
 import tellMeWhereApi from "../api/tell-me-where-api";
 
 const AddScreen = ({}) => {
-  const [location, setLocation, search, setSearch, addRecApi] = useRecs();
-  const [recs, getUserRecs] = useRecsDisplay();
+  const [location, setLocation, search, setSearch, addRecApi, recData] =
+    useRecs();
+  const [recs, setRecs, getUserRecs] = useRecsDisplay();
+  console.log(`Inside AddScreen: ${recs}`);
 
   const onButtonPressed = async () => {
-    await addRecApi().then(getUserRecs);
+    console.log("The Button Was Pressed");
+    const newRec = await addRecApi();
     setSearch("");
     setLocation("");
+    const newRecData = [...recs, newRec];
+    setRecs(newRecData);
   };
 
   const deleteRecApi = async (id) => {
@@ -58,14 +63,11 @@ const AddScreen = ({}) => {
       <View style={styles.scroll_container}>
         <Text style={styles.textStyle}>Your Recommendations</Text>
         <ScrollView>
+          {/* <Text style={styles.textStyle}>{recs["recs"]}</Text> */}
           {recs.map((rec) => (
             <View key={rec.id} style={styles.user_container}>
               <View style={styles.rec}>
                 <Image style={styles.images} source={{ uri: rec.image_url }} />
-                <Text style={styles.user_text}>
-                  {" "}
-                  {rec.location_city},{rec.location_state}
-                </Text>
                 <Text style={styles.user_text}> {rec.restaurant_name}</Text>
                 <Text style={styles.user_text}>
                   {" "}
@@ -82,6 +84,7 @@ const AddScreen = ({}) => {
               </View>
             </View>
           ))}
+          {/* <Text style={styles.textStyle}>{recs}</Text> */}
         </ScrollView>
       </View>
     </View>
@@ -92,6 +95,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#e5e5e5",
+    // alignItems: "center",
   },
   scroll_container: {
     flex: 2,
@@ -125,11 +129,6 @@ const styles = StyleSheet.create({
   },
   rec: {
     margin: 5,
-  },
-  user_text: {
-    fontWeight: "bold",
-    fontSize: 15,
-    margin: 1,
   },
 });
 
