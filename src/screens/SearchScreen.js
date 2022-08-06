@@ -1,11 +1,9 @@
 import React, { useState, useContext } from "react";
-import { Text, StyleSheet, View, Image, ScrollView } from "react-native";
+import { Text, StyleSheet, View, Image, FlatList } from "react-native";
 import InputForm from "../components/InputForm";
 import CustomButton from "../components/CustomButton";
 import tellMeWhereApi from "../api/tell-me-where-api";
 import { AuthContext } from "../context/AuthContext";
-import useRecsDisplay from "../hooks/useRecsDisplay";
-import yelpApi from "../api/yelp";
 
 const SearchScreen = ({}) => {
   const [location, setLocation] = useState("");
@@ -30,26 +28,23 @@ const SearchScreen = ({}) => {
         return resp.data.user.recs;
       })
     );
-    //if location in friends recs send to api call to grab recs
+    //if location in friends add to recs list
     const all_friends = await friend_recs;
-    console.log(all_friends);
+    let recs_of_friends = [];
     const results = Promise.all(
       all_friends.map((friend) =>
         friend.map(async (rec) => {
           if (rec.location_city) {
-            console.log("yes");
             if (
               location == rec.location_city.toLowerCase() ||
               location == rec.location_state.toLowerCase()
             ) {
-              setRecs([...recs, rec]);
-              // setRecs(rec);
-              console.log(rec);
-              // console.log(rec);
-              //send friend id to api call to grab recs
+              //display friend name who rec belongs to
               rec.users.map((user) => {
                 setFriend(user.username);
               });
+              //add individual rec to recs_from_friends results list
+              recs_of_friends.push(rec);
             }
           } else if (rec.yelp_id) {
             //if not, grab location for friend id with yelp API
@@ -60,6 +55,8 @@ const SearchScreen = ({}) => {
         })
       )
     );
+    //set state variable recs to results list to render
+    setRecs(recs_of_friends);
     //display no results message if no results found
     const friend_location_query =
       (await results) === "undefined" ? false : results;
@@ -72,7 +69,7 @@ const SearchScreen = ({}) => {
 
   //get location with yelp id
   const getLocationWithYelp = async (id) => {
-    console.log("yelp call");
+    // console.log("yelp call");
     // const resp = await yelpApi.get(`/search`);
     // if (id in resp.data.id) {
     //   if (
@@ -100,35 +97,36 @@ const SearchScreen = ({}) => {
           type="PRIMARY"
         />
       </View>
-      <Text>{noResults ? noResults : ""}</Text>
-      <Text style={styles.textStyle}>
-        {friend ? "Your Friend Recommendations" : ""}
-      </Text>
-
       <View style={styles.scroll_container}>
-        <ScrollView>
-          {console.log(recs)}
-          {recs.map((rec) => {
-            <View style={styles.user_container}>
-              <View style={styles.rec}>
-                <Text style={styles.user_text}>
-                  {" "}
-                  {rec.location_city},{""}
-                  {rec.location_state}
-                </Text>
-                <Text style={styles.user_text}> {rec.restaurant_name}</Text>
-                <Text style={styles.user_text}>
-                  {" "}
-                  {rec.category1},{""}
-                  {rec.category2},{""}
-                  {rec.category3},
-                </Text>
-                <Text style={styles.user_text}> {rec.price}</Text>
-              </View>
-            </View>;
-          })}
-        </ScrollView>
+        <FlatList
+          data={recs}
+          // keyExtractor={(rec) => recid.toString()}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item }) => {
+            return (
+              <Text style={styles.user_container}>
+                {console.log(item)}
+                {console.log(item.restaurant_name)}
+                {console.log(friend)}
+                {console.log(recs)}
+                <View style={styles.rec}>
+                  <Image
+                    style={styles.images}
+                    source={{ uri: item.image_url }}
+                  />
+                  <Text style={styles.user_text}>{friend}</Text>
+                  <Text style={styles.user_text}>{item.restaurant_name}</Text>
+                  <Text style={styles.user_text}>{item.location_city}</Text>
+                  <Text style={styles.user_text}>{item.location_state}</Text>
+                  <Text style={styles.user_text}>{item.price}</Text>
+                </View>
+              </Text>
+            );
+          }}
+        />
       </View>
+
+      {console.log(recs)}
     </View>
   );
 };
@@ -179,11 +177,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   textStyle: {
-    fontSize: 30,
+    fontSize: 10,
     color: "#141414",
     fontWeight: "bold",
     marginTop: 40,
     marginLeft: 15,
+  },
+  images: {
+    width: 300,
+    height: 200,
+    borderRadius: 8,
   },
 });
 
