@@ -84,7 +84,7 @@ const FriendsScreen = ({}) => {
         onPress={onButtonPressed}
         type="PRIMARY"
       />
-      <ScrollView>
+      <ScrollView style={styles.scroll_container}>
         {friendData.map((friend) => (
           <View key={friend.id} style={styles.user_container}>
             <Text style={styles.user_text}>{friend.username}</Text>
@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#e5e5e5",
+    justifyContent: "center",
     // alignItems: "center",
   },
   header: {
@@ -128,6 +129,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: "50%",
     marginLeft: 10,
+    justifyContent: "center",
+  },
+  scroll_container: {
+    flex: 2,
+    marginTop: 10,
+    marginBottom: 120,
+    backgroundColor: "#e5e5e5",
   },
 });
 

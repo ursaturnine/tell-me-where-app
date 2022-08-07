@@ -18,14 +18,14 @@ const InputForm = ({ value, setValue, placeholder, secureTextEntry }) => {
 const styles = StyleSheet.create({
   container: {
     width: "30%",
-    borderColor: "#e8e8e8",
+    minWidth: 130,
+    borderColor: "#D8D8D8",
     borderWidth: 1,
     borderRadius: 5,
-    paddingHorizontal: 10,
     marginVertical: 10,
   },
   input: {
-    marginLeft: 15,
+    marginLeft: 5,
   },
 });
 

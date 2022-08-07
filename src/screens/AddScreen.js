@@ -47,18 +47,16 @@ const AddScreen = ({}) => {
   return (
     <View style={styles.container}>
       <View style={styles.form_container}>
-        <Text style={styles.textStyle}>Add a Recommendation</Text>
+        <Text style={styles.textStyleTitle}>Add a Recommendation</Text>
+        <Text>City</Text>
         <InputForm placeholder="City" value={location} setValue={setLocation} />
+        <Text>Restaurant Name</Text>
         <InputForm
           placeholder="Restaurant Name"
           value={search}
           setValue={setSearch}
         />
-        <CustomButton
-          text="Add Recommendation"
-          onPress={onButtonPressed}
-          type="PRIMARY"
-        />
+        <CustomButton text="Add" onPress={onButtonPressed} type="PRIMARY" />
       </View>
       <View style={styles.scroll_container}>
         <Text style={styles.textStyle}>Your Recommendations</Text>
@@ -95,10 +93,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#e5e5e5",
-    // alignItems: "center",
+    alignItems: "center",
   },
   scroll_container: {
     flex: 2,
+    marginTop: 100,
+    marginBottom: 120,
     backgroundColor: "#e5e5e5",
   },
   form_container: {
@@ -115,12 +115,21 @@ const styles = StyleSheet.create({
     width: "50%",
     marginLeft: 10,
   },
-  textStyle: {
+  textStyleTitle: {
     fontSize: 30,
     color: "#141414",
     fontWeight: "bold",
     marginTop: 40,
     marginLeft: 15,
+    marginBottom: 15,
+  },
+  textStyle: {
+    fontSize: 30,
+    color: "#141414",
+    fontWeight: "bold",
+    marginTop: 5,
+    marginLeft: 15,
+    marginBottom: 5,
   },
   images: {
     width: 300,
