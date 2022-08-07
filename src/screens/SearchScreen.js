@@ -1,5 +1,12 @@
 import React, { useState, useContext } from "react";
-import { Text, StyleSheet, View, Image, FlatList } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  Image,
+  FlatList,
+  SectionList,
+} from "react-native";
 import InputForm from "../components/InputForm";
 import CustomButton from "../components/CustomButton";
 import tellMeWhereApi from "../api/tell-me-where-api";
@@ -14,6 +21,9 @@ const SearchScreen = ({}) => {
 
   //get friends ids
   const getFriendsIds = async () => {
+    if (recs) {
+      setRecs([]);
+    }
     const resp = await tellMeWhereApi.get(`users/${userID}`);
     const friends = resp.data.user.friends.map((friend) => friend.id);
     getRecsByLocation(friends);
@@ -30,7 +40,10 @@ const SearchScreen = ({}) => {
     );
     //if location in friends add to recs list
     const all_friends = await friend_recs;
+    //recs list
     let recs_of_friends = [];
+    //username list
+    let friend_users = [];
     const results = Promise.all(
       all_friends.map((friend) =>
         friend.map(async (rec) => {
@@ -41,7 +54,7 @@ const SearchScreen = ({}) => {
             ) {
               //display friend name who rec belongs to
               rec.users.map((user) => {
-                setFriend(user.username);
+                // friend_users.push(user.username);
               });
               //add individual rec to recs_from_friends results list
               recs_of_friends.push(rec);
@@ -57,6 +70,8 @@ const SearchScreen = ({}) => {
     );
     //set state variable recs to results list to render
     setRecs(recs_of_friends);
+    // setFriend(friend_users);
+    setLocation("");
     //display no results message if no results found
     const friend_location_query =
       (await results) === "undefined" ? false : results;
@@ -114,7 +129,7 @@ const SearchScreen = ({}) => {
                     style={styles.images}
                     source={{ uri: item.image_url }}
                   />
-                  <Text style={styles.user_text}>{friend}</Text>
+                  {/* <Text style={styles.user_text}>{friend}</Text> */}
                   <Text style={styles.user_text}>{item.restaurant_name}</Text>
                   <Text style={styles.user_text}>{item.location_city}</Text>
                   <Text style={styles.user_text}>{item.location_state}</Text>
