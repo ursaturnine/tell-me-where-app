@@ -19,11 +19,9 @@ const AddScreen = ({}) => {
   const [recs, setRecs, getUserRecs] = useRecsDisplay();
 
   const onButtonPressed = async () => {
-    // const newRec = await addRecApi();
+    await addRecApi().then(getUserRecs);
     setSearch("");
     setLocation("");
-    // const newRecData = [...recs, newRec];
-    // setRecs(newRecData);
   };
 
   const deleteRecApi = async (id) => {
