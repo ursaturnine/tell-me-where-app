@@ -17,21 +17,18 @@ const AddScreen = ({}) => {
   const [location, setLocation, search, setSearch, addRecApi, recData] =
     useRecs();
   const [recs, setRecs, getUserRecs] = useRecsDisplay();
-  console.log(`Inside AddScreen: ${recs}`);
 
   const onButtonPressed = async () => {
-    console.log("The Button Was Pressed");
-    const newRec = await addRecApi();
+    // const newRec = await addRecApi();
     setSearch("");
     setLocation("");
-    const newRecData = [...recs, newRec];
-    setRecs(newRecData);
+    // const newRecData = [...recs, newRec];
+    // setRecs(newRecData);
   };
 
   const deleteRecApi = async (id) => {
     try {
       const response = await tellMeWhereApi.delete(`/recs/${id}`);
-      console.log(response);
     } catch (err) {
       console.log(`${err}`);
     }
@@ -93,7 +90,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#e5e5e5",
-    alignItems: "center",
   },
   scroll_container: {
     flex: 2,
