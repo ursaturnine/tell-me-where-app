@@ -125,7 +125,9 @@ const SearchScreen = ({}) => {
                     style={styles.images}
                     source={{ uri: item.image_url }}
                   />
-                  <Text style={styles.textStyle}>{item.username}</Text>
+                  <Text style={styles.user_text}>
+                    {item.users.map((user) => user.username)}
+                  </Text>
                   <Text style={styles.user_text}>{item.restaurant_name}</Text>
                   <Text style={styles.user_text}>{item.location_city}</Text>
                   <Text style={styles.user_text}>{item.location_state}</Text>
