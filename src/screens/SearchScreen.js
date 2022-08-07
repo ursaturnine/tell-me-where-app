@@ -120,16 +120,12 @@ const SearchScreen = ({}) => {
           renderItem={({ item }) => {
             return (
               <Text style={styles.user_container}>
-                {console.log(item)}
-                {console.log(item.restaurant_name)}
-                {console.log(friend)}
-                {console.log(recs)}
                 <View style={styles.rec}>
                   <Image
                     style={styles.images}
                     source={{ uri: item.image_url }}
                   />
-                  {/* <Text style={styles.user_text}>{friend}</Text> */}
+                  <Text style={styles.textStyle}>{item.username}</Text>
                   <Text style={styles.user_text}>{item.restaurant_name}</Text>
                   <Text style={styles.user_text}>{item.location_city}</Text>
                   <Text style={styles.user_text}>{item.location_state}</Text>
