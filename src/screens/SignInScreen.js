@@ -6,6 +6,7 @@ import tellMeWhereApi from "../api/tell-me-where-api";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
 import { useFonts } from "expo-font";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SignInScreen = ({}) => {
   const { username } = useContext(AuthContext);
@@ -24,7 +25,8 @@ const SignInScreen = ({}) => {
   }
 
   const onSignInPressed = async () => {
-    return logInApi();
+    await logInApi();
+    AsyncStorage.setItem("token", JSON.stringify(userID));
   };
 
   const onSignUpPressed = () => {

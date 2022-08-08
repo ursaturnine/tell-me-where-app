@@ -84,7 +84,7 @@ const SignUpScreen = () => {
         onPress={onRegisterPressed}
         type="PRIMARY"
       />
-      <Text>
+      {/* <Text>
         By registering, you accept our{" "}
         <Text style={styles.link} onPress={onTermsOfUsePressed}>
           Terms of Use
@@ -94,7 +94,7 @@ const SignUpScreen = () => {
           {" "}
           Privacy Policy
         </Text>
-      </Text>
+      </Text> */}
       <CustomButton
         text="Have An Account? Sign In"
         onPress={onSignInPressed}
@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 40,
     marginLeft: 15,
+    marginBottom: 50,
   },
 });
 
