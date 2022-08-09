@@ -74,10 +74,15 @@ const AddScreen = ({}) => {
                   />
                 </View>
                 <Image style={styles.images} source={{ uri: rec.image_url }} />
-                <Text style={styles.user_text}>
-                  {" "}
-                  {rec.category1} | {rec.category2} | {rec.category3}
-                </Text>
+                <View style={styles.recCategories}>
+                  <Text style={styles.user_text}> {rec.category1}</Text>
+                  {rec.category2 && (
+                    <Text style={styles.user_text}> | {rec.category2}</Text>
+                  )}
+                  {rec.category3 && (
+                    <Text style={styles.user_text}> | {rec.category3}</Text>
+                  )}
+                </View>
                 <Text style={styles.user_text}>
                   {rec.location_city}, {rec.location_state}
                 </Text>
@@ -113,6 +118,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#e5e5e5",
+    justifyContent: "center",
   },
   scroll_container: {
     flex: 2,
@@ -139,6 +145,7 @@ const styles = StyleSheet.create({
   },
   user_text: {
     paddingTop: 5,
+    marginLeft: 10,
   },
   user_heading: {
     fontSize: 20,
@@ -172,6 +179,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 10,
+  },
+  recCategories: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    paddingLeft: 0,
+    paddingRight: 0,
   },
 });
 
