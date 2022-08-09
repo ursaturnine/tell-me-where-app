@@ -81,22 +81,24 @@ const AddScreen = ({}) => {
                 <Text style={styles.user_text}>
                   {rec.location_city}, {rec.location_state}
                 </Text>
-                <Text style={styles.user_text}> {rec.price}</Text>
-                <TouchableOpacity
-                  type="SECONDARY"
-                  onPress={() => {
-                    Linking.openURL(rec.yelp_url);
-                  }}
-                >
-                  <Image
-                    source={require("../assets/images/yelp2.png")}
-                    resizeMode="contain"
-                    style={{
-                      width: 25,
-                      height: 25,
+                <View style={styles.recTop}>
+                  <Text style={styles.user_text}> {rec.price}</Text>
+                  <TouchableOpacity
+                    type="SECONDARY"
+                    onPress={() => {
+                      Linking.openURL(rec.yelp_url);
                     }}
-                  />
-                </TouchableOpacity>
+                  >
+                    <Image
+                      source={require("../assets/images/yelp2.png")}
+                      resizeMode="contain"
+                      style={{
+                        width: 25,
+                        height: 25,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           ))}
