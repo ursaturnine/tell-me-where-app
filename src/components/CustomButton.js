@@ -27,16 +27,32 @@ const styles = StyleSheet.create({
   container_PRIMARY: {
     backgroundColor: "#F2A337",
   },
+  container_SECONDARY: {
+    width: "1%",
+    minWidth: 10,
+    paddingTop: 0,
+    paddingBottom: 0,
+    marginVertical: 0,
+    paddingRight: 10,
+    alignItems: "flex-start",
+  },
   container_TERTIARY: {
     width: "100%",
+    paddingTop: 0,
+    paddingBottom: 5,
   },
   text_PRIMARY: {
     fontWeight: "bold",
     color: "#FFFFFF",
   },
+  text_SECONDARY: {
+    fontWeight: "bold",
+    color: "#202020",
+    fontSize: 20,
+  },
   text_TERTIARY: {
     fontWeight: "bold",
-    color: "#808080",
+    color: "#202020",
   },
 });
 

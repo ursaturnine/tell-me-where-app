@@ -5,13 +5,15 @@ import {
   View,
   Image,
   ScrollView,
-  FlatList,
+  TouchableOpacity,
 } from "react-native";
 import CustomButton from "../components/CustomButton";
 import InputForm from "../components/InputForm";
 import useRecs from "../hooks/useRecs";
 import useRecsDisplay from "../hooks/useRecsDisplay";
 import tellMeWhereApi from "../api/tell-me-where-api";
+import { AuthContext } from "../context/AuthContext";
+import * as Linking from "expo-linking";
 
 const AddScreen = ({}) => {
   const [location, setLocation, search, setSearch, addRecApi, recData] =
@@ -60,20 +62,41 @@ const AddScreen = ({}) => {
           {recs.map((rec) => (
             <View key={rec.id} style={styles.user_container}>
               <View style={styles.rec}>
+                <View style={styles.recTop}>
+                  <Text style={styles.user_heading}>
+                    {" "}
+                    {rec.restaurant_name}
+                  </Text>
+                  <CustomButton
+                    text="X"
+                    onPress={() => onDeleteButtonPressed(rec.id)}
+                    type="SECONDARY"
+                  />
+                </View>
                 <Image style={styles.images} source={{ uri: rec.image_url }} />
-                <Text style={styles.user_text}> {rec.restaurant_name}</Text>
                 <Text style={styles.user_text}>
                   {" "}
-                  {rec.category1},{""}
-                  {rec.category2},{""}
-                  {rec.category3},
+                  {rec.category1} | {rec.category2} | {rec.category3}
+                </Text>
+                <Text style={styles.user_text}>
+                  {rec.location_city}, {rec.location_state}
                 </Text>
                 <Text style={styles.user_text}> {rec.price}</Text>
-                <CustomButton
-                  text="X"
-                  onPress={() => onDeleteButtonPressed(rec.id)}
-                  type="TERTIARY"
-                />
+                <TouchableOpacity
+                  type="SECONDARY"
+                  onPress={() => {
+                    Linking.openURL(rec.yelp_url);
+                  }}
+                >
+                  <Image
+                    source={require("../assets/images/yelp2.png")}
+                    resizeMode="contain"
+                    style={{
+                      width: 25,
+                      height: 25,
+                    }}
+                  />
+                </TouchableOpacity>
               </View>
             </View>
           ))}
@@ -94,6 +117,7 @@ const styles = StyleSheet.create({
     marginTop: 100,
     marginBottom: 120,
     backgroundColor: "#e5e5e5",
+    justifyContent: "center",
   },
   form_container: {
     flex: 1,
@@ -102,12 +126,21 @@ const styles = StyleSheet.create({
   },
   user_container: {
     flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
     backgroundColor: "#F99245",
-    padding: 30,
+    padding: 10,
     marginVertical: 10,
+    marginHorizontal: 10,
     borderRadius: 8,
-    width: "50%",
-    marginLeft: 10,
+    width: "90%",
+  },
+  user_text: {
+    paddingTop: 5,
+  },
+  user_heading: {
+    fontSize: 20,
+    fontWeight: "bold",
   },
   textStyleTitle: {
     fontSize: 30,
@@ -132,6 +165,11 @@ const styles = StyleSheet.create({
   },
   rec: {
     margin: 5,
+  },
+  recTop: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 10,
   },
 });
 

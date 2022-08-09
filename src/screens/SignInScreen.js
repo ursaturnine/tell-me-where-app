@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     color: "#141414",
     fontWeight: "bold",
     marginTop: 40,
-    marginLeft: 15,
+    // marginLeft: 15,
   },
   titleStyle: {
     fontSize: 55,
@@ -99,7 +99,8 @@ const styles = StyleSheet.create({
     color: "#141414",
     fontWeight: "bold",
     marginTop: 40,
-    marginLeft: 15,
+    // marginLeft: 15,
+    marginBottom: 50,
   },
   buttons: {
     backgroundColor: "#7F00FF",
