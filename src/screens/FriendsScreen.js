@@ -72,29 +72,33 @@ const FriendsScreen = ({}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Friends</Text>
-      {errorMessage ? <Text> {errorMessage} </Text> : null}
-      <InputForm
-        placeholder="Username"
-        value={friendSearch}
-        setValue={setFriendSearch}
-      />
-      <CustomButton
-        text="Add Friend"
-        onPress={onButtonPressed}
-        type="PRIMARY"
-      />
-      <ScrollView style={styles.scroll_container}>
-        {friendData.map((friend) => (
-          <View key={friend.id} style={styles.user_container}>
-            <Text style={styles.user_text}>{friend.username}</Text>
-            <CustomButton
-              text="unfollow"
-              onPress={() => onUnfollowButtonPressed(friend.id)}
-              type="TERTIARY"
-            />
-          </View>
-        ))}
+      <View style={styles.form_container}>
+        <Text style={styles.header}>Friends</Text>
+        {errorMessage ? <Text> {errorMessage} </Text> : null}
+        <InputForm
+          placeholder="Username"
+          value={friendSearch}
+          setValue={setFriendSearch}
+        />
+        <CustomButton
+          text="Add Friend"
+          onPress={onButtonPressed}
+          type="PRIMARY"
+        />
+      </View>
+      <ScrollView>
+        <View style={styles.scroll_container}>
+          {friendData.map((friend) => (
+            <View key={friend.id} style={styles.user_container}>
+              <Text style={styles.user_text}>{friend.username}</Text>
+              <CustomButton
+                text="unfollow"
+                onPress={() => onUnfollowButtonPressed(friend.id)}
+                type="TERTIARY"
+              />
+            </View>
+          ))}
+        </View>
       </ScrollView>
     </View>
   );
@@ -106,7 +110,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#e5e5e5",
     justifyContent: "center",
-    // alignItems: "center",
   },
   header: {
     fontSize: 32,
@@ -114,21 +117,29 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 40,
     marginLeft: 15,
+    textAlign: "center",
   },
   bodyText: {
     marginVertical: 50,
+    textAlign: "center",
+  },
+  form_container: {
+    flex: 1,
+    backgroundColor: "#e5e5e5",
+    alignItems: "center",
   },
   user_text: {
     fontWeight: "bold",
+    textAlign: "center",
   },
   user_container: {
-    flex: 1,
+    flex: 2,
     backgroundColor: "#F99245",
-    padding: 30,
+    // padding: 30,
     marginVertical: 10,
+    marginHorizontal: 20,
     borderRadius: 8,
-    width: "50%",
-    marginLeft: 10,
+    // width: "80%",
     justifyContent: "center",
   },
   scroll_container: {
@@ -136,6 +147,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 120,
     backgroundColor: "#e5e5e5",
+    justifyContent: "center",
+    flexDirection: "column",
+    textAlign: "center",
   },
 });
 
