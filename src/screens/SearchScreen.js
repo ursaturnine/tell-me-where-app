@@ -11,6 +11,7 @@ import InputForm from "../components/InputForm";
 import CustomButton from "../components/CustomButton";
 import tellMeWhereApi from "../api/tell-me-where-api";
 import { AuthContext } from "../context/AuthContext";
+import { ScrollView } from "react-native-web";
 
 const SearchScreen = ({}) => {
   const [location, setLocation] = useState("");
@@ -72,6 +73,7 @@ const SearchScreen = ({}) => {
     setRecs(recs_of_friends);
     // setFriend(friend_users);
     setLocation("");
+    getUsers();
     //display no results message if no results found
     const friend_location_query =
       (await results) === "undefined" ? false : results;
@@ -80,6 +82,16 @@ const SearchScreen = ({}) => {
     } else {
       setNoResults("");
     }
+  };
+
+  const getUsers = () => {
+    let friend_users = [];
+    for (let i = 0; i < recs.length; i++) {
+      if (recs[i] != friend_users) {
+        friend_users.push(recs[i]);
+      }
+    }
+    console.log(friend_users);
   };
 
   //get location with yelp id
@@ -115,30 +127,53 @@ const SearchScreen = ({}) => {
       <View style={styles.scroll_container}>
         <FlatList
           data={recs}
-          // keyExtractor={(rec) => recid.toString()}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => {
             return (
-              <Text style={styles.user_container}>
-                <View style={styles.rec}>
-                  <Image
-                    style={styles.images}
-                    source={{ uri: item.image_url }}
+              <View>
+                <Text style={styles.friend_header}>
+                  {item.users.map(
+                    (user) => `${user.username}'s recommendations`
+                  )}
+                </Text>
+
+                <View>
+                  <FlatList
+                    data={recs}
+                    keyExtractor={(rec) => rec.id.toString()}
+                    showsVerticalScrollIndicator={false}
+                    renderItem={({ item }) => {
+                      return (
+                        <Text style={styles.user_container}>
+                          <View style={styles.rec}>
+                            <Image
+                              style={styles.images}
+                              source={{ uri: item.image_url }}
+                            />
+                            <Text style={styles.user_text}>
+                              {item.users.map((user) => user.username)}
+                            </Text>
+                            <Text style={styles.user_text}>
+                              {item.restaurant_name}
+                            </Text>
+                            <Text style={styles.user_text}>
+                              {item.location_city}
+                            </Text>
+                            <Text style={styles.user_text}>
+                              {item.location_state}
+                            </Text>
+                            <Text style={styles.user_text}>{item.price}</Text>
+                          </View>
+                        </Text>
+                      );
+                    }}
                   />
-                  <Text style={styles.user_text}>
-                    {item.users.map((user) => user.username)}
-                  </Text>
-                  <Text style={styles.user_text}>{item.restaurant_name}</Text>
-                  <Text style={styles.user_text}>{item.location_city}</Text>
-                  <Text style={styles.user_text}>{item.location_state}</Text>
-                  <Text style={styles.user_text}>{item.price}</Text>
                 </View>
-              </Text>
+              </View>
             );
           }}
         />
       </View>
-
       {console.log(recs)}
     </View>
   );
@@ -200,6 +235,12 @@ const styles = StyleSheet.create({
     width: 300,
     height: 200,
     borderRadius: 8,
+  },
+  friend_header: {
+    marginLeft: 15,
+    fontSize: 50,
+    fontWeight: "bold",
+    margin: 10,
   },
 });
 
