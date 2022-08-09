@@ -32,11 +32,11 @@ const styles = StyleSheet.create({
   },
   text_PRIMARY: {
     fontWeight: "bold",
-    color: "#white",
+    color: "#FFFFFF",
   },
   text_TERTIARY: {
     fontWeight: "bold",
-    color: "#grey",
+    color: "#808080",
   },
 });
 
