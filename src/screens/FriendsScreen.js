@@ -92,9 +92,9 @@ const FriendsScreen = ({}) => {
             <View key={friend.id} style={styles.user_container}>
               <Text style={styles.user_text}>{friend.username}</Text>
               <CustomButton
-                text="unfollow"
+                text="X"
                 onPress={() => onUnfollowButtonPressed(friend.id)}
-                type="TERTIARY"
+                type="SECONDARY"
               />
             </View>
           ))}
@@ -127,25 +127,28 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#e5e5e5",
     alignItems: "center",
+    marginBottom: 180,
   },
   user_text: {
     fontWeight: "bold",
     textAlign: "center",
+    fontSize: 15,
   },
   user_container: {
     flex: 2,
     backgroundColor: "#F99245",
-    // padding: 30,
+    padding: 30,
     marginVertical: 10,
     marginHorizontal: 20,
     borderRadius: 8,
     // width: "80%",
-    justifyContent: "center",
+    justifyContent: "space-between",
+    flexDirection: "row",
   },
   scroll_container: {
     flex: 2,
-    marginTop: 10,
-    marginBottom: 120,
+    // paddingTop: 80,
+    marginBottom: 150,
     backgroundColor: "#e5e5e5",
     justifyContent: "center",
     flexDirection: "column",
