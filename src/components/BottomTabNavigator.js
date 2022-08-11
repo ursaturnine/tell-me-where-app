@@ -41,36 +41,6 @@ const BottomTabNavigator = () => {
         },
       }}
     >
-      {/* <BottomTab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                top: 10,
-              }}
-            >
-              <Image
-                source={require("../assets/images/home.png")}
-                resizeMode="contain"
-                style={{
-                  width: 25,
-                  height: 25,
-                  tintColor: focused ? "#B6D0E2" : "#E6E6FA",
-                }}
-              />
-              <Text
-                style={{ color: focused ? "#B6D0E2" : "#E6E6FA", fontSize: 12 }}
-              >
-                Home
-              </Text>
-            </View>
-          ),
-        }}
-      ></BottomTab.Screen> */}
       <BottomTab.Screen
         name="Search"
         component={SearchScreen}

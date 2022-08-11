@@ -102,7 +102,6 @@ const FriendsScreen = ({}) => {
       </ScrollView>
     </View>
   );
-  // );
 };
 
 const styles = StyleSheet.create({
@@ -116,18 +115,21 @@ const styles = StyleSheet.create({
     color: "#141414",
     fontWeight: "bold",
     marginTop: 40,
-    marginLeft: 15,
+    // marginLeft: 15,
     textAlign: "center",
   },
   bodyText: {
-    marginVertical: 50,
+    // marginVertical: 50,
     textAlign: "center",
   },
   form_container: {
-    flex: 1,
+    flex: 3,
     backgroundColor: "#e5e5e5",
     alignItems: "center",
-    marginBottom: 180,
+    // height: 400,
+    marginBottom: 80,
+    // height: "150%",
+    // marginTop: 300,
   },
   user_text: {
     fontWeight: "bold",
@@ -135,20 +137,18 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   user_container: {
-    flex: 2,
     backgroundColor: "#F99245",
     padding: 30,
     marginVertical: 10,
     marginHorizontal: 20,
     borderRadius: 8,
-    // width: "80%",
     justifyContent: "space-between",
     flexDirection: "row",
   },
   scroll_container: {
     flex: 2,
     // paddingTop: 80,
-    marginBottom: 150,
+    marginBottom: 100,
     backgroundColor: "#e5e5e5",
     justifyContent: "center",
     flexDirection: "column",

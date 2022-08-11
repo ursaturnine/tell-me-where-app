@@ -43,21 +43,25 @@ const AddScreen = ({}) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.form_container}>
-        <Text style={styles.textStyleTitle}>Add a Recommendation</Text>
-        <Text>City</Text>
-        <InputForm placeholder="City" value={location} setValue={setLocation} />
-        <Text>Restaurant Name</Text>
-        <InputForm
-          placeholder="Restaurant Name"
-          value={search}
-          setValue={setSearch}
-        />
-        <CustomButton text="Add" onPress={onButtonPressed} type="PRIMARY" />
-      </View>
       <View style={styles.scroll_container}>
-        <Text style={styles.textStyle}>Your Recommendations</Text>
         <ScrollView>
+          <View style={styles.form_container}>
+            <Text style={styles.textStyleTitle}>Add a Recommendation</Text>
+            <Text>City</Text>
+            <InputForm
+              placeholder="City"
+              value={location}
+              setValue={setLocation}
+            />
+            <Text>Restaurant Name</Text>
+            <InputForm
+              placeholder="Restaurant Name"
+              value={search}
+              setValue={setSearch}
+            />
+            <CustomButton text="Add" onPress={onButtonPressed} type="PRIMARY" />
+          </View>
+          <Text style={styles.textStyle}>Your Recommendations</Text>
           {/* <Text style={styles.textStyle}>{recs["recs"]}</Text> */}
           {recs.map((rec) => (
             <View key={rec.id} style={styles.user_container}>
@@ -108,6 +112,7 @@ const AddScreen = ({}) => {
             </View>
           ))}
           {/* <Text style={styles.textStyle}>{recs}</Text> */}
+          {/* </ScrollView> */}
         </ScrollView>
       </View>
     </View>
@@ -121,8 +126,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   scroll_container: {
-    flex: 2,
-    marginTop: 100,
+    flex: 1,
+    // marginTop: 100,
     marginBottom: 120,
     backgroundColor: "#e5e5e5",
     justifyContent: "center",
@@ -131,21 +136,23 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#e5e5e5",
     alignItems: "center",
+    marginBottom: 30,
   },
   user_container: {
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "#F99245",
-    padding: 10,
+    padding: 5,
     marginVertical: 10,
-    marginHorizontal: 10,
+    marginHorizontal: 20,
     borderRadius: 8,
-    width: "90%",
+    // width: "90%",
   },
   user_text: {
     paddingTop: 5,
-    marginLeft: 10,
+    // marginLeft: 10,
   },
   user_heading: {
     fontSize: 20,
@@ -156,7 +163,7 @@ const styles = StyleSheet.create({
     color: "#141414",
     fontWeight: "bold",
     marginTop: 40,
-    marginLeft: 15,
+    // marginLeft: 15,
     marginBottom: 15,
   },
   textStyle: {
@@ -164,8 +171,9 @@ const styles = StyleSheet.create({
     color: "#141414",
     fontWeight: "bold",
     marginTop: 5,
-    marginLeft: 15,
+    // marginLeft: 15,
     marginBottom: 5,
+    textAlign: "center",
   },
   images: {
     width: 300,
@@ -183,7 +191,7 @@ const styles = StyleSheet.create({
   recCategories: {
     flexDirection: "row",
     justifyContent: "flex-start",
-    paddingLeft: 0,
+    // paddingLeft: 0,
     paddingRight: 0,
   },
 });

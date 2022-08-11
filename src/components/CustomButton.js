@@ -28,10 +28,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#F2A337",
   },
   container_SECONDARY: {
-    width: "1%",
+    // width: "1%",
     minWidth: 10,
     paddingTop: 0,
     paddingBottom: 0,
+    paddingLeft: 65,
     marginVertical: 0,
     paddingRight: 10,
     alignItems: "flex-start",
