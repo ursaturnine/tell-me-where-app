@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import {
   Text,
   StyleSheet,
@@ -12,13 +12,12 @@ import InputForm from "../components/InputForm";
 import useRecs from "../hooks/useRecs";
 import useRecsDisplay from "../hooks/useRecsDisplay";
 import tellMeWhereApi from "../api/tell-me-where-api";
-import { AuthContext } from "../context/AuthContext";
 import * as Linking from "expo-linking";
 
 const AddScreen = ({}) => {
   const [location, setLocation, search, setSearch, addRecApi, recData] =
     useRecs();
-  const [recs, setRecs, getUserRecs] = useRecsDisplay();
+  const [recs, getUserRecs] = useRecsDisplay();
 
   const onButtonPressed = async () => {
     await addRecApi().then(getUserRecs);
@@ -35,8 +34,6 @@ const AddScreen = ({}) => {
   };
 
   const onDeleteButtonPressed = async (recID) => {
-    console.log("The Delete Button Was Pressed");
-    console.log(`rec id is ${recID}`);
     const response = await deleteRecApi(recID);
     getUserRecs();
   };
@@ -62,7 +59,6 @@ const AddScreen = ({}) => {
             <CustomButton text="Add" onPress={onButtonPressed} type="PRIMARY" />
           </View>
           <Text style={styles.textStyle}>Your Recommendations</Text>
-          {/* <Text style={styles.textStyle}>{recs["recs"]}</Text> */}
           {recs.map((rec) => (
             <View key={rec.id} style={styles.user_container}>
               <View style={styles.rec}>
@@ -111,8 +107,6 @@ const AddScreen = ({}) => {
               </View>
             </View>
           ))}
-          {/* <Text style={styles.textStyle}>{recs}</Text> */}
-          {/* </ScrollView> */}
         </ScrollView>
       </View>
     </View>
@@ -127,7 +121,6 @@ const styles = StyleSheet.create({
   },
   scroll_container: {
     flex: 1,
-    // marginTop: 100,
     backgroundColor: "#e5e5e5",
     justifyContent: "center",
     marginBottom: 120,
@@ -148,11 +141,9 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     marginHorizontal: 20,
     borderRadius: 8,
-    // width: "90%",
   },
   user_text: {
     paddingTop: 5,
-    // marginLeft: 10,
   },
   user_heading: {
     fontSize: 20,
@@ -163,7 +154,6 @@ const styles = StyleSheet.create({
     color: "#141414",
     fontWeight: "bold",
     marginTop: 40,
-    // marginLeft: 15,
     marginBottom: 15,
   },
   textStyle: {
@@ -171,7 +161,6 @@ const styles = StyleSheet.create({
     color: "#141414",
     fontWeight: "bold",
     marginTop: 5,
-    // marginLeft: 15,
     marginBottom: 5,
     textAlign: "center",
   },
@@ -191,7 +180,6 @@ const styles = StyleSheet.create({
   recCategories: {
     flexDirection: "row",
     justifyContent: "flex-start",
-    // paddingLeft: 0,
     paddingRight: 0,
   },
 });

@@ -36,7 +36,6 @@ const SignUpScreen = () => {
       if (userFound === false) {
         console.log("user doesn't exist yet");
         registerApi();
-        // return logInApi();
       } else {
         console.log("Username is taken");
         setErrorMessage("Username is taken");
@@ -65,36 +64,12 @@ const SignUpScreen = () => {
         value={username}
         setValue={setUsername}
       />
-      {/* <InputForm placeholder="Email" value={email} setValue={setEmail} />
-      <InputForm
-        placeholder="Password"
-        value={password}
-        setValue={setPassword}
-        secureTextEntry
-      />
-      <InputForm
-        placeholder="Re-enter Password"
-        value={passwordRepeat}
-        setValue={setPasswordRepeat}
-        secureTextEntry
-      /> */}
       <Text>{errorMessage ? errorMessage : ""}</Text>
       <CustomButton
         text="Register"
         onPress={onRegisterPressed}
         type="PRIMARY"
       />
-      {/* <Text>
-        By registering, you accept our{" "}
-        <Text style={styles.link} onPress={onTermsOfUsePressed}>
-          Terms of Use
-        </Text>{" "}
-        and
-        <Text style={styles.link} onPress={onPrivacyPolicyPressed}>
-          {" "}
-          Privacy Policy
-        </Text>
-      </Text> */}
       <CustomButton
         text="Have An Account? Sign In"
         onPress={onSignInPressed}
@@ -116,7 +91,6 @@ const styles = StyleSheet.create({
     color: "#141414",
     fontWeight: "bold",
     marginTop: 40,
-    // marginLeft: 15,
   },
   link: {
     color: "#FF4848",
@@ -127,7 +101,6 @@ const styles = StyleSheet.create({
     color: "#141414",
     fontWeight: "bold",
     marginTop: 40,
-    // marginLeft: 15,
     marginBottom: 50,
   },
 });

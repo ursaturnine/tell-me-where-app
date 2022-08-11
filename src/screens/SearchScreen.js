@@ -1,5 +1,12 @@
 import React, { useState, useContext } from "react";
-import { Text, StyleSheet, View, Image, FlatList } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  Image,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import InputForm from "../components/InputForm";
 import CustomButton from "../components/CustomButton";
 import tellMeWhereApi from "../api/tell-me-where-api";
@@ -99,11 +106,42 @@ const SearchScreen = ({}) => {
                     source={{ uri: item.image_url }}
                   />
 
+                  <View style={styles.recCategories}>
+                    <Text style={styles.user_text}> {item.category1}</Text>
+                    {item.category2 && (
+                      <Text style={styles.user_text}> | {item.category2}</Text>
+                    )}
+                    {item.category3 && (
+                      <Text style={styles.user_text}> | {item.category3}</Text>
+                    )}
+                  </View>
+                  <Text style={styles.user_text}>
+                    {item.location_city}, {item.location_state}
+                  </Text>
+                  <View style={styles.recTop}>
+                    <Text style={styles.user_text}> {item.price}</Text>
+                    <TouchableOpacity
+                      type="SECONDARY"
+                      onPress={() => {
+                        Linking.openURL(item.yelp_url);
+                      }}
+                    >
+                      <Image
+                        source={require("../assets/images/yelp2.png")}
+                        resizeMode="contain"
+                        style={{
+                          width: 25,
+                          height: 25,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  {/* 
                   <Text style={styles.user_text}></Text>
                   <Text style={styles.user_text}>{item.restaurant_name}</Text>
                   <Text style={styles.user_text}>{item.location_city}</Text>
                   <Text style={styles.user_text}>{item.location_state}</Text>
-                  <Text style={styles.user_text}>{item.price}</Text>
+                  <Text style={styles.user_text}>{item.price}</Text> */}
                 </View>
               </Text>
             );
@@ -118,13 +156,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#e5e5e5",
+    justifyContent: "center",
   },
   scroll_container: {
     flex: 2,
     backgroundColor: "#e5e5e5",
+    justifyContent: "center",
+    marginBottom: 120,
+  },
+  form_container: {
+    flex: 1,
+    backgroundColor: "#e5e5e5",
+    alignItems: "center",
+    marginBottom: 30,
   },
   header: {
-    fontSize: 32,
+    fontSize: 30,
     color: "#141414",
     fontWeight: "bold",
     marginTop: 40,
@@ -132,12 +179,14 @@ const styles = StyleSheet.create({
   },
   user_container: {
     flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "#F99245",
-    padding: 30,
+    padding: 5,
     marginVertical: 10,
+    marginHorizontal: 20,
     borderRadius: 8,
-    width: "50%",
-    marginLeft: 10,
   },
   textStyle: {
     fontSize: 30,
@@ -149,18 +198,16 @@ const styles = StyleSheet.create({
   rec: {
     margin: 5,
   },
-  user_text: {
-    fontWeight: "bold",
-    fontSize: 15,
-    margin: 1,
+  recTop: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 10,
   },
-  form_container: {
-    flex: 1,
-    backgroundColor: "#e5e5e5",
-    alignItems: "center",
+  user_text: {
+    paddingTop: 5,
   },
   textStyle: {
-    fontSize: 10,
+    fontSize: 30,
     color: "#141414",
     fontWeight: "bold",
     marginTop: 40,
@@ -173,9 +220,14 @@ const styles = StyleSheet.create({
   },
   friend_header: {
     marginLeft: 15,
-    fontSize: 50,
+    fontSize: 10,
     fontWeight: "bold",
-    margin: 10,
+    // margin: 10,
+  },
+  recCategories: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    paddingRight: 0,
   },
 });
 

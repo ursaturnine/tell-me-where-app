@@ -161,36 +161,6 @@ const BottomTabNavigator = () => {
           ),
         }}
       ></BottomTab.Screen>
-      {/* <BottomTab.Screen
-        name="Sign Up"
-        component={SignUpScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                top: 10,
-              }}
-            >
-              <Image
-                source={require("../assets/images/group-add.png")}
-                resizeMode="contain"
-                style={{
-                  width: 25,
-                  height: 25,
-                  tintColor: focused ? "#B6D0E2" : "#E6E6FA",
-                }}
-              />
-              <Text
-                style={{ color: focused ? "#B6D0E2" : "#E6E6FA", fontSize: 12 }}
-              >
-                Sign Up
-              </Text>
-            </View>
-          ),
-        }}
-      ></BottomTab.Screen> */}
     </BottomTab.Navigator>
   );
 };

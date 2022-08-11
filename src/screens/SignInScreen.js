@@ -62,12 +62,6 @@ const SignInScreen = ({}) => {
         value={username}
         setValue={setUsername}
       />
-      {/* <InputForm
-        placeholder="Password"
-        value={password}
-        setValue={setPassword}
-        secureTextEntry={true}
-      /> */}
       <CustomButton text="Sign In" onPress={onSignInPressed} type="PRIMARY" />
       <Text>{errorMessage ? errorMessage : ""}</Text>
       <CustomButton
@@ -91,7 +85,6 @@ const styles = StyleSheet.create({
     color: "#141414",
     fontWeight: "bold",
     marginTop: 40,
-    // marginLeft: 15,
   },
   titleStyle: {
     fontSize: 55,
@@ -99,7 +92,6 @@ const styles = StyleSheet.create({
     color: "#141414",
     fontWeight: "bold",
     marginTop: 40,
-    // marginLeft: 15,
     marginBottom: 50,
   },
   buttons: {

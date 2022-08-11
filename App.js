@@ -1,6 +1,5 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useContext, useEffect, useState } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet } from "react-native";
 import BottomTabNavigator from "./src/components/BottomTabNavigator";
 import { NavigationContainer } from "@react-navigation/native";
 import StackNavigator from "./src/components/StackNavigator";
