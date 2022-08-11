@@ -86,8 +86,8 @@ const FriendsScreen = ({}) => {
           type="PRIMARY"
         />
       </View>
-      <ScrollView>
-        <View style={styles.scroll_container}>
+      <View style={styles.scroll_container}>
+        <ScrollView>
           {friendData.map((friend) => (
             <View key={friend.id} style={styles.user_container}>
               <Text style={styles.user_text}>{friend.username}</Text>
@@ -98,8 +98,8 @@ const FriendsScreen = ({}) => {
               />
             </View>
           ))}
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -123,11 +123,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   form_container: {
-    flex: 3,
+    flex: 1,
     backgroundColor: "#e5e5e5",
     alignItems: "center",
     // height: 400,
-    marginBottom: 80,
+    marginBottom: 10,
+    paddingBottom: 5,
     // height: "150%",
     // marginTop: 300,
   },
@@ -146,9 +147,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   scroll_container: {
-    flex: 2,
-    // paddingTop: 80,
-    marginBottom: 100,
+    flex: 3,
+    paddingTop: 10,
+    marginTop: 10,
+    marginBottom: 120,
     backgroundColor: "#e5e5e5",
     justifyContent: "center",
     flexDirection: "column",

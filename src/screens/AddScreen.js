@@ -128,9 +128,9 @@ const styles = StyleSheet.create({
   scroll_container: {
     flex: 1,
     // marginTop: 100,
-    marginBottom: 120,
     backgroundColor: "#e5e5e5",
     justifyContent: "center",
+    marginBottom: 120,
   },
   form_container: {
     flex: 1,
