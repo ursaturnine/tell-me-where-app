@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Text,
   StyleSheet,
@@ -17,6 +17,10 @@ const SearchScreen = ({}) => {
   const { userID } = useContext(AuthContext);
   const [noResults, setNoResults] = useState("");
   const [recs, setRecs] = useState([]);
+
+  useEffect(() => {
+    showError();
+  }, [recs]);
 
   //get friends ids
   const getFriendsIds = async () => {
@@ -60,15 +64,13 @@ const SearchScreen = ({}) => {
     );
 
     //set state variable recs to results list to render
-    // let friend_recs = await recs_of_friends
     setRecs(recs_of_friends);
     setLocation("");
+  };
 
-    //display no results message if no results found
-    const friend_location_query =
-      (await results) === "undefined" ? false : results;
-    if (friend_location_query === false) {
-      setNoResults("No Matches");
+  const showError = () => {
+    if (location && recs.length === 0) {
+      setNoResults(`There are no recs for ${location}`);
     } else {
       setNoResults("");
     }
@@ -89,6 +91,9 @@ const SearchScreen = ({}) => {
           type="PRIMARY"
         />
       </View>
+
+      <Text style={styles.textStyle}>{noResults}</Text>
+
       <View style={styles.scroll_container}>
         <FlatList
           data={recs}
