@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   StyleSheet,
@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import CustomButton from "../components/CustomButton";
 import InputForm from "../components/InputForm";
@@ -18,11 +19,16 @@ const AddScreen = ({}) => {
   const [location, setLocation, search, setSearch, addRecApi, recData] =
     useRecs();
   const [recs, getUserRecs] = useRecsDisplay();
+  const [isLoading, setIsLoading] = useState(false);
 
   const onButtonPressed = async () => {
+    setIsLoading(true);
+    console.log(isLoading);
     await addRecApi().then(getUserRecs);
     setSearch("");
     setLocation("");
+    setIsLoading(false);
+    console.log(isLoading);
   };
 
   const deleteRecApi = async (id) => {
@@ -59,6 +65,7 @@ const AddScreen = ({}) => {
             <CustomButton text="Add" onPress={onButtonPressed} type="PRIMARY" />
           </View>
           <Text style={styles.textStyle}>Your Recommendations</Text>
+          {/* <ActivityIndicator color="orange" animating={isLoading} /> */}
           {recs.map((rec) => (
             <View key={rec.id} style={styles.user_container}>
               <View style={styles.rec}>

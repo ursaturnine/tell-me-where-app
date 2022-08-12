@@ -5,6 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 export default () => {
   const [recs, setRecs] = useState([]);
   const { userID } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
   const getUserRecs = async () => {
     try {
       const response = await tellMeWhereApi.get(`/users/${userID}`);
@@ -15,7 +16,7 @@ export default () => {
   };
   useEffect(() => {
     getUserRecs();
-    console.log("userecsdisplay useEffect ran!");
+    setIsLoading(false);
   }, []);
   return [recs, setRecs, getUserRecs];
 };
