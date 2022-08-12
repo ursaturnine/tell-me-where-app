@@ -18,17 +18,17 @@ import * as Linking from "expo-linking";
 const AddScreen = ({}) => {
   const [location, setLocation, search, setSearch, addRecApi, recData] =
     useRecs();
-  const [recs, setRecs, getUserRecs] = useRecsDisplay();
-  const [isLoading, setIsLoading] = useState(false);
+  const [recs, setRecs, getUserRecs, isLoading, setIsLoading] =
+    useRecsDisplay();
 
   const onButtonPressed = async () => {
     setIsLoading(true);
-    console.log(isLoading);
+    console.log(`first is loading ${isLoading}`);
     await addRecApi().then(getUserRecs);
     setSearch("");
     setLocation("");
     setIsLoading(false);
-    console.log(isLoading);
+    console.log(`second is loading ${isLoading}`);
   };
 
   const deleteRecApi = async (id) => {
@@ -65,7 +65,11 @@ const AddScreen = ({}) => {
             <CustomButton text="Add" onPress={onButtonPressed} type="PRIMARY" />
           </View>
           <Text style={styles.textStyle}>Your Recommendations</Text>
-          {/* <ActivityIndicator color="orange" animating={isLoading} /> */}
+          <ActivityIndicator
+            color="orange"
+            animating={isLoading}
+            size="small"
+          />
           {recs.map((rec) => (
             <View key={rec.id} style={styles.user_container}>
               <View style={styles.rec}>
@@ -136,7 +140,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#e5e5e5",
     alignItems: "center",
-    marginBottom: 30,
+    marginBottom: 10,
   },
   user_container: {
     flex: 1,

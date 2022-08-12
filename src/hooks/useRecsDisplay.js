@@ -4,6 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 
 export default () => {
   const [recs, setRecs] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const { userID } = useContext(AuthContext);
   const getUserRecs = async () => {
     try {
@@ -17,5 +18,5 @@ export default () => {
     getUserRecs();
     setIsLoading(false);
   }, []);
-  return [recs, setRecs, getUserRecs];
+  return [recs, setRecs, getUserRecs, isLoading, setIsLoading];
 };
