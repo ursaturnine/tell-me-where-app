@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, StyleSheet, View, Image } from "react-native";
+import { Text, StyleSheet, View, ActivityIndicator } from "react-native";
 import InputForm from "../components/InputForm";
 import CustomButton from "../components/CustomButton";
 import { useNavigation } from "@react-navigation/native";
@@ -9,6 +9,7 @@ const SignUpScreen = () => {
   const navigation = useNavigation();
   const [username, setUsername] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const registerApi = async () => {
     try {
@@ -23,7 +24,7 @@ const SignUpScreen = () => {
   };
 
   const onRegisterPressed = async () => {
-    console.log("The Register Button Was Pressed");
+    setIsLoading(true);
     if (username != "") {
       let userFound = false;
       const response = await tellMeWhereApi.get("/users");
@@ -41,6 +42,7 @@ const SignUpScreen = () => {
         setErrorMessage("Username is taken");
       }
     }
+    setIsLoading(false);
   };
 
   const onTermsOfUsePressed = () => {
@@ -58,6 +60,7 @@ const SignUpScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.titleStyle}>tell me where</Text>
+      <ActivityIndicator color="orange" animating={isLoading} size="small" />
       <Text style={styles.textStyle}>Create An Account</Text>
       <InputForm
         placeholder="Username"

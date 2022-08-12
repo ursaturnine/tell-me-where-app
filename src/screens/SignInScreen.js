@@ -15,6 +15,7 @@ const SignInScreen = ({}) => {
   const { setUserID } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState("");
   const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [loaded] = useFonts({
     DancingScript: require("../assets/fonts/DancingScript.ttf"),
@@ -25,8 +26,10 @@ const SignInScreen = ({}) => {
   }
 
   const onSignInPressed = async () => {
+    setIsLoading(true);
     await logInApi();
     AsyncStorage.setItem("token", JSON.stringify(userID));
+    setIsLoading(false);
   };
 
   const onSignUpPressed = () => {
@@ -56,6 +59,7 @@ const SignInScreen = ({}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.titleStyle}>tell me where</Text>
+      <ActivityIndicator color="orange" animating={isLoading} size="small" />
       <Text style={styles.textStyle}>Sign In</Text>
       <InputForm
         placeholder="Username"
