@@ -17,7 +17,7 @@ import * as Linking from "expo-linking";
 const AddScreen = ({}) => {
   const [location, setLocation, search, setSearch, addRecApi, recData] =
     useRecs();
-  const [recs, getUserRecs] = useRecsDisplay();
+  const [recs, setRecs, getUserRecs] = useRecsDisplay();
 
   const onButtonPressed = async () => {
     await addRecApi().then(getUserRecs);
