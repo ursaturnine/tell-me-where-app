@@ -6,6 +6,7 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import InputForm from "../components/InputForm";
 import CustomButton from "../components/CustomButton";
@@ -17,15 +18,18 @@ const SearchScreen = ({}) => {
   const { userID } = useContext(AuthContext);
   const [noResults, setNoResults] = useState("");
   const [recs, setRecs] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   //get friends ids
   const getFriendsIds = async () => {
+    setIsLoading(true);
     if (recs) {
       setRecs([]);
     }
     const resp = await tellMeWhereApi.get(`users/${userID}`);
     const friends = resp.data.user.friends.map((friend) => friend.id);
     getRecsByLocation(friends);
+    setIsLoading(false);
   };
 
   // get friends recs with matching locations by ids
@@ -88,6 +92,13 @@ const SearchScreen = ({}) => {
           text="Tell Me Where"
           type="PRIMARY"
         />
+        <View style={styles.loading}>
+          <ActivityIndicator
+            color="orange"
+            animating={isLoading}
+            size="small"
+          />
+        </View>
       </View>
       <View style={styles.scroll_container}>
         <FlatList
@@ -168,7 +179,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#e5e5e5",
     alignItems: "center",
-    marginBottom: 30,
+    marginBottom: 10,
   },
   header: {
     fontSize: 30,
@@ -228,6 +239,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     paddingRight: 0,
+  },
+  loading: {
+    marginVertical: 10,
+    padding: 0,
   },
 });
 
