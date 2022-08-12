@@ -1,5 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Text, StyleSheet, View, ScrollView } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import useFriendData from "../hooks/useFriendData";
 import { AuthContext } from "../context/AuthContext";
 import tellMeWhereApi from "../api/tell-me-where-api";
@@ -11,6 +17,7 @@ const FriendsScreen = ({}) => {
   const [friendSearch, setFriendSearch] = useState("");
   const [errorMessage, friendData, setFriendData, setErrorMessage] =
     useFriendData();
+  const [isLoading, setIsLoading] = useState(false);
 
   const searchFriendApi = async () => {
     try {
@@ -38,9 +45,11 @@ const FriendsScreen = ({}) => {
   };
 
   const onButtonPressed = async () => {
+    setIsLoading(true);
     const friendId = await searchFriendApi();
     addFriendApi(friendId);
     setFriendSearch("");
+    setIsLoading(false);
   };
 
   const deleteFriendApi = async (id) => {
@@ -77,6 +86,11 @@ const FriendsScreen = ({}) => {
       </View>
       <View style={styles.scroll_container}>
         <ScrollView>
+          <ActivityIndicator
+            color="orange"
+            animating={isLoading}
+            size="small"
+          />
           {friendData.map((friend) => (
             <View key={friend.id} style={styles.user_container}>
               <Text style={styles.user_text}>{friend.username}</Text>
