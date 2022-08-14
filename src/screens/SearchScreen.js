@@ -20,7 +20,7 @@ const SearchScreen = ({}) => {
   const [noResults, setNoResults] = useState("");
   const [recs, setRecs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  // const [topRec, setTopRec] = useState("");
+  const [topRec, setTopRec] = useState("");
 
   //show error message
   useEffect(() => {
@@ -32,12 +32,13 @@ const SearchScreen = ({}) => {
     setIsLoading(true);
     if (recs) {
       setRecs([]);
+      setTopRec("");
     }
     const resp = await tellMeWhereApi.get(`users/${userID}`);
     const friends = resp.data.user.friends.map((friend) => friend.id);
     getRecsByLocation(friends);
     setIsLoading(false);
-    // return friends;
+    return friends;
   };
 
   // get friends recs with matching locations by ids
@@ -99,20 +100,27 @@ const SearchScreen = ({}) => {
     }
     if (favRecs.length > 1) {
       favRecs = [favRecs[0]];
-      // showFavRec(favRecs);
+      console.log(favRecs);
+      if (favRecs) {
+        favRests(favRecs);
+      }
     }
   };
 
-  // const Fav = (favs) => {
-  //   const topRestaurant = favs.map((fav) => {
-  //     return (
-  //       <View style={styles.user_container}>
-  //         <Text style={styles.textStyle}>{fav.restaurant_name} </Text>
-  //         <Image style={styles.images} source={{ uri: fav.image_url }} />
-  //       </View>
-  //     );
-  //   });
-  // };
+  //takes in list of favRecs and displays
+  const favRests = (favs) => {
+    const topRestaurant = favs.map((fav) => {
+      return (
+        <View style={styles.topRecContainer}>
+          <Text
+            style={styles.topRecText}
+          >{`The Top Rec For ${location} is ${fav.restaurant_name}!`}</Text>
+          <Image style={styles.topRecImage} source={{ uri: fav.image_url }} />
+        </View>
+      );
+    });
+    setTopRec(topRestaurant);
+  };
 
   return (
     <View style={styles.container}>
@@ -136,22 +144,9 @@ const SearchScreen = ({}) => {
           />
         </View>
       </View>
-
       <Text style={styles.textStyle}>{noResults}</Text>
-      {/* <Fav /> */}
 
-      {/* <SectionList
-        sections={topRec}
-        keyExtractor={(item, index) => item + index}
-        renderItem={({ item }) => (
-          <Text
-            style={styles.textStyle}
-          >{`Top Recommendations for ${location}`}</Text>
-        )}
-        renderSectionHeader={({ section }) => (
-          <Text style={styles.textStyle}>{section.restaurant_name}</Text>
-        )}
-      /> */}
+      <Text style={styles.rec}>{topRec}</Text>
 
       <View style={styles.scroll_container}>
         <FlatList
@@ -161,8 +156,13 @@ const SearchScreen = ({}) => {
           renderItem={({ item }) => {
             return (
               <Text style={styles.user_container}>
-                <Text style={styles.friend_header}>
-                  {item.users.map((user) => `${user.username} Recommends`)}
+                <Text>
+                  {item.users.map((user) => (
+                    <Text style={styles.friend_header}>
+                      {" "}
+                      {user.username} Recommends
+                    </Text>
+                  ))}
                 </Text>
                 <View style={styles.rec}>
                   <Image
@@ -222,6 +222,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#e5e5e5",
     justifyContent: "center",
   },
+
   scroll_container: {
     flex: 2,
     backgroundColor: "#e5e5e5",
@@ -247,7 +248,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#F99245",
-    padding: 5,
+    padding: 7,
     marginVertical: 10,
     marginHorizontal: 20,
     borderRadius: 8,
@@ -268,7 +269,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   user_text: {
-    paddingTop: 5,
+    fontSize: 10,
+    color: "#141414",
+    fontWeight: "bold",
+    marginTop: 40,
+    marginLeft: 15,
   },
   textStyle: {
     fontSize: 30,
@@ -278,9 +283,11 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   images: {
-    width: 300,
-    height: 200,
+    width: 200,
+    height: 100,
     borderRadius: 8,
+    marginTop: 20,
+    marginLeft: 15,
   },
   friend_header: {
     marginLeft: 15,
@@ -296,6 +303,24 @@ const styles = StyleSheet.create({
   loading: {
     marginVertical: 10,
     padding: 0,
+  },
+  topRecImage: {
+    width: 200,
+    height: 100,
+    borderRadius: 8,
+    margin: 2,
+    marginTop: 2,
+  },
+  topRecText: {
+    fontSize: 30,
+    color: "#141414",
+    fontWeight: "bold",
+    marginTop: 60,
+    marginLeft: 15,
+  },
+  topRecContainer: {
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
