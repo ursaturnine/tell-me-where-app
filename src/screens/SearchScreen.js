@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Text,
   StyleSheet,
@@ -7,11 +7,14 @@ import {
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
+  SectionList,
 } from "react-native";
 import InputForm from "../components/InputForm";
 import CustomButton from "../components/CustomButton";
 import tellMeWhereApi from "../api/tell-me-where-api";
 import { AuthContext } from "../context/AuthContext";
+import useRecs from "../hooks/useRecs";
+import useRecsDisplay from "../hooks/useRecsDisplay";
 
 const SearchScreen = ({}) => {
   const [location, setLocation] = useState("");
@@ -19,6 +22,12 @@ const SearchScreen = ({}) => {
   const [noResults, setNoResults] = useState("");
   const [recs, setRecs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [topRec, setTopRec] = useState("");
+
+  //show error message
+  useEffect(() => {
+    showError();
+  }, [recs]);
 
   //get friends ids
   const getFriendsIds = async () => {
@@ -30,6 +39,7 @@ const SearchScreen = ({}) => {
     const friends = resp.data.user.friends.map((friend) => friend.id);
     getRecsByLocation(friends);
     setIsLoading(false);
+    return friends;
   };
 
   // get friends recs with matching locations by ids
@@ -64,19 +74,47 @@ const SearchScreen = ({}) => {
     );
 
     //set state variable recs to results list to render
-    // let friend_recs = await recs_of_friends
     setRecs(recs_of_friends);
     setLocation("");
+    getFavRec(recs_of_friends);
+  };
 
-    //display no results message if no results found
-    const friend_location_query =
-      (await results) === "undefined" ? false : results;
-    if (friend_location_query === false) {
-      setNoResults("No Matches");
+  //show error message
+  const showError = async () => {
+    if (location && recs.length === 0) {
+      setNoResults(`There are no recs for ${location}`);
     } else {
       setNoResults("");
     }
   };
+
+  //display mult recs if rec is in more than two friends' recs list
+  const getFavRec = (friend_recs) => {
+    let favRecs = [];
+    for (let i = 0; i < friend_recs.length; i++) {
+      if (favRecs.length === 0) {
+        favRecs.push(friend_recs[i]);
+        if (favRecs.includes(friend_recs[i])) {
+          favRecs.push(friend_recs[i]);
+        }
+      }
+    }
+    if (favRecs.length > 1) {
+      favRecs = [favRecs[0]];
+      // showFavRec(favRecs);
+    }
+  };
+
+  // const Fav = (favs) => {
+  //   const topRestaurant = favs.map((fav) => {
+  //     return (
+  //       <View style={styles.user_container}>
+  //         <Text style={styles.textStyle}>{fav.restaurant_name} </Text>
+  //         <Image style={styles.images} source={{ uri: fav.image_url }} />
+  //       </View>
+  //     );
+  //   });
+  // };
 
   return (
     <View style={styles.container}>
@@ -100,6 +138,23 @@ const SearchScreen = ({}) => {
           />
         </View>
       </View>
+
+      <Text style={styles.textStyle}>{noResults}</Text>
+      {/* <Fav /> */}
+
+      {/* <SectionList
+        sections={topRec}
+        keyExtractor={(item, index) => item + index}
+        renderItem={({ item }) => (
+          <Text
+            style={styles.textStyle}
+          >{`Top Recommendations for ${location}`}</Text>
+        )}
+        renderSectionHeader={({ section }) => (
+          <Text style={styles.textStyle}>{section.restaurant_name}</Text>
+        )}
+      /> */}
+
       <View style={styles.scroll_container}>
         <FlatList
           data={recs}
