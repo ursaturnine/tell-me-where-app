@@ -13,8 +13,6 @@ import InputForm from "../components/InputForm";
 import CustomButton from "../components/CustomButton";
 import tellMeWhereApi from "../api/tell-me-where-api";
 import { AuthContext } from "../context/AuthContext";
-import useRecs from "../hooks/useRecs";
-import useRecsDisplay from "../hooks/useRecsDisplay";
 
 const SearchScreen = ({}) => {
   const [location, setLocation] = useState("");
@@ -22,7 +20,7 @@ const SearchScreen = ({}) => {
   const [noResults, setNoResults] = useState("");
   const [recs, setRecs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [topRec, setTopRec] = useState("");
+  // const [topRec, setTopRec] = useState("");
 
   //show error message
   useEffect(() => {
@@ -39,7 +37,7 @@ const SearchScreen = ({}) => {
     const friends = resp.data.user.friends.map((friend) => friend.id);
     getRecsByLocation(friends);
     setIsLoading(false);
-    return friends;
+    // return friends;
   };
 
   // get friends recs with matching locations by ids
