@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Text,
   StyleSheet,
@@ -7,6 +7,7 @@ import {
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
+  SectionList,
 } from "react-native";
 import InputForm from "../components/InputForm";
 import CustomButton from "../components/CustomButton";
@@ -19,17 +20,25 @@ const SearchScreen = ({}) => {
   const [noResults, setNoResults] = useState("");
   const [recs, setRecs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [topRec, setTopRec] = useState("");
+
+  //show error message
+  useEffect(() => {
+    showError();
+  }, [recs]);
 
   //get friends ids
   const getFriendsIds = async () => {
     setIsLoading(true);
     if (recs) {
       setRecs([]);
+      setTopRec("");
     }
     const resp = await tellMeWhereApi.get(`users/${userID}`);
     const friends = resp.data.user.friends.map((friend) => friend.id);
     getRecsByLocation(friends);
     setIsLoading(false);
+    return friends;
   };
 
   // get friends recs with matching locations by ids
@@ -64,18 +73,53 @@ const SearchScreen = ({}) => {
     );
 
     //set state variable recs to results list to render
-    // let friend_recs = await recs_of_friends
     setRecs(recs_of_friends);
     setLocation("");
+    getFavRec(recs_of_friends);
+  };
 
-    //display no results message if no results found
-    const friend_location_query =
-      (await results) === "undefined" ? false : results;
-    if (friend_location_query === false) {
-      setNoResults("No Matches");
+  //show error message
+  const showError = async () => {
+    if (location && recs.length === 0) {
+      setNoResults(`There are no recs for ${location}`);
     } else {
       setNoResults("");
     }
+  };
+
+  //grabs rec if rec is in more than two friends' recs list
+  const getFavRec = (friend_recs) => {
+    let favRecs = [];
+    for (let i = 0; i < friend_recs.length; i++) {
+      if (favRecs.length === 0) {
+        favRecs.push(friend_recs[i]);
+        if (favRecs.includes(friend_recs[i])) {
+          favRecs.push(friend_recs[i]);
+        }
+      }
+    }
+    if (favRecs.length > 1) {
+      favRecs = [favRecs[0]];
+      console.log(favRecs);
+      if (favRecs) {
+        favRests(favRecs);
+      }
+    }
+  };
+
+  //takes in list of favRecs and displays
+  const favRests = (favs) => {
+    const topRestaurant = favs.map((fav) => {
+      return (
+        <View style={styles.topRecContainer}>
+          <Text
+            style={styles.topRecText}
+          >{`The Top Rec For ${location} is ${fav.restaurant_name}!`}</Text>
+          <Image style={styles.topRecImage} source={{ uri: fav.image_url }} />
+        </View>
+      );
+    });
+    setTopRec(topRestaurant);
   };
 
   return (
@@ -100,6 +144,10 @@ const SearchScreen = ({}) => {
           />
         </View>
       </View>
+      <Text style={styles.textStyle}>{noResults}</Text>
+
+      <Text style={styles.rec}>{topRec}</Text>
+
       <View style={styles.scroll_container}>
         <FlatList
           data={recs}
@@ -173,6 +221,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#e5e5e5",
     justifyContent: "center",
   },
+
   scroll_container: {
     flex: 2,
     backgroundColor: "#e5e5e5",
@@ -198,7 +247,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#F99245",
-    padding: 5,
+    padding: 7,
     marginVertical: 10,
     marginHorizontal: 20,
     borderRadius: 8,
@@ -219,7 +268,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   user_text: {
-    paddingTop: 5,
+    fontSize: 10,
+    color: "#141414",
+    fontWeight: "bold",
+    marginTop: 40,
+    marginLeft: 15,
   },
   textStyle: {
     fontSize: 30,
@@ -229,9 +282,11 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   images: {
-    width: 300,
-    height: 200,
+    width: 200,
+    height: 100,
     borderRadius: 8,
+    marginTop: 20,
+    marginLeft: 15,
   },
   friend_header: {
     marginLeft: 15,
@@ -251,6 +306,24 @@ const styles = StyleSheet.create({
   loading: {
     marginVertical: 10,
     padding: 0,
+  },
+  topRecImage: {
+    width: 200,
+    height: 100,
+    borderRadius: 8,
+    margin: 2,
+    marginTop: 2,
+  },
+  topRecText: {
+    fontSize: 30,
+    color: "#141414",
+    fontWeight: "bold",
+    marginTop: 60,
+    marginLeft: 15,
+  },
+  topRecContainer: {
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

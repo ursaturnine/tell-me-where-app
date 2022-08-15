@@ -155,7 +155,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   user_text: {
-    paddingTop: 5,
+    fontSize: 10,
+    color: "#141414",
+    fontWeight: "bold",
+    marginTop: 40,
+    marginLeft: 8,
   },
   user_heading: {
     fontSize: 20,
@@ -177,17 +181,20 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   images: {
-    width: 300,
-    height: 200,
+    width: 200,
+    height: 100,
     borderRadius: 8,
+    marginTop: 20,
+    marginLeft: 8,
   },
   rec: {
-    margin: 5,
+    marginLeft: 8,
   },
   recTop: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 10,
+    marginLeft: 8,
   },
   recCategories: {
     flexDirection: "row",
