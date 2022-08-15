@@ -87,7 +87,7 @@ const SearchScreen = ({}) => {
     }
   };
 
-  //display mult recs if rec is in more than two friends' recs list
+  //grabs rec if rec is in more than two friends' recs list
   const getFavRec = (friend_recs) => {
     let favRecs = [];
     for (let i = 0; i < friend_recs.length; i++) {
