@@ -75,6 +75,7 @@ const SearchScreen = ({}) => {
     //set state variable recs to results list to render
     setRecs(recs_of_friends);
     setLocation("");
+    console.log(recs_of_friends);
     getFavRec(recs_of_friends);
   };
 
@@ -89,18 +90,23 @@ const SearchScreen = ({}) => {
 
   //display mult recs if rec is in more than two friends' recs list
   const getFavRec = (friend_recs) => {
+    let recsFriends = [];
     let favRecs = [];
     for (let i = 0; i < friend_recs.length; i++) {
-      if (favRecs.length === 0) {
-        favRecs.push(friend_recs[i]);
-        if (favRecs.includes(friend_recs[i])) {
-          favRecs.push(friend_recs[i]);
-        }
+      if (recsFriends.includes(friend_recs[i].restaurant_name)) {
+        favRecs.push(recsFriends[i]);
+        console.log(favRecs);
+        continue;
+      } else {
+        recsFriends.push(friend_recs[i]);
+        console.log(favRecs);
       }
     }
+    console.log(favRecs);
     if (favRecs.length > 1) {
+      // console.log(favRecs);
       favRecs = [favRecs[0]];
-      console.log(favRecs);
+      // console.log(favRecs);
       if (favRecs) {
         favRests(favRecs);
       }
