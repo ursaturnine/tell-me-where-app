@@ -30,10 +30,10 @@ const SearchScreen = ({}) => {
   //get friends ids
   const getFriendsIds = async () => {
     setIsLoading(true);
-    if (recs) {
-      setRecs([]);
-      setTopRec("");
-    }
+    // if (recs) {
+    //   setRecs([]);
+    //   setTopRec("");
+    // }
     const resp = await tellMeWhereApi.get(`users/${userID}`);
     const friends = resp.data.user.friends.map((friend) => friend.id);
     getRecsByLocation(friends);
