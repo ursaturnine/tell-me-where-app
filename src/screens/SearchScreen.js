@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   scroll_container: {
-    flex: 1,
+    flex: 2,
     backgroundColor: "#e5e5e5",
     justifyContent: "center",
     marginBottom: 120,
