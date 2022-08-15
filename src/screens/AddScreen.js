@@ -124,6 +124,77 @@ const AddScreen = ({}) => {
   );
 };
 
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: "#e5e5e5",
+//     justifyContent: "center",
+//   },
+//   scroll_container: {
+//     flex: 1,
+//     backgroundColor: "#e5e5e5",
+//     justifyContent: "center",
+//     marginBottom: 120,
+//   },
+//   form_container: {
+//     flex: 1,
+//     backgroundColor: "#e5e5e5",
+//     alignItems: "center",
+//     marginBottom: 10,
+//   },
+//   user_container: {
+//     flex: 1,
+//     flexDirection: "column",
+//     justifyContent: "center",
+//     alignItems: "center",
+//     backgroundColor: "#F99245",
+//     padding: 5,
+//     marginVertical: 10,
+//     marginHorizontal: 20,
+//     borderRadius: 8,
+//   },
+//   user_text: {
+//     paddingTop: 5,
+//   },
+//   user_heading: {
+//     fontSize: 20,
+//     fontWeight: "bold",
+//   },
+//   textStyleTitle: {
+//     fontSize: 30,
+//     color: "#141414",
+//     fontWeight: "bold",
+//     marginTop: 40,
+//     marginBottom: 15,
+//   },
+//   textStyle: {
+//     fontSize: 30,
+//     color: "#141414",
+//     fontWeight: "bold",
+//     marginTop: 5,
+//     marginBottom: 5,
+//     textAlign: "center",
+//   },
+//   images: {
+//     width: 300,
+//     height: 200,
+//     borderRadius: 8,
+//   },
+//   rec: {
+//     margin: 5,
+//   },
+//   recTop: {
+//     flexDirection: "row",
+//     justifyContent: "space-between",
+//     marginBottom: 10,
+//   },
+//   recCategories: {
+//     flexDirection: "row",
+//     justifyContent: "flex-start",
+//     paddingRight: 0,
+//   },
+// });
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -149,17 +220,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#F99245",
     padding: 5,
-    paddingTop: 10,
     marginVertical: 10,
     marginHorizontal: 20,
     borderRadius: 8,
   },
   user_text: {
-    fontSize: 10,
-    color: "#141414",
-    fontWeight: "bold",
-    marginTop: 40,
-    marginLeft: 8,
+    paddingTop: 5,
   },
   user_heading: {
     fontSize: 20,
@@ -181,20 +247,17 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   images: {
-    width: 200,
-    height: 100,
+    width: 300,
+    height: 200,
     borderRadius: 8,
-    marginTop: 20,
-    marginLeft: 8,
   },
   rec: {
-    marginLeft: 8,
+    margin: 5,
   },
   recTop: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 10,
-    marginLeft: 8,
   },
   recCategories: {
     flexDirection: "row",
