@@ -81,7 +81,7 @@ const SearchScreen = ({}) => {
   return (
     <View style={styles.container}>
       <View style={styles.form_container}>
-        <Text style={styles.header}>Search Screen</Text>
+        <Text style={styles.header}>Get Recommendations</Text>
         <InputForm
           placeholder="Search location..."
           value={location}
@@ -109,7 +109,11 @@ const SearchScreen = ({}) => {
             return (
               <Text style={styles.user_container}>
                 <Text style={styles.friend_header}>
-                  {item.users.map((user) => `${user.username} Recommends`)}
+                  {item.users.map((user) => `${user.username} recommends...`)}
+                </Text>
+                <Text style={styles.user_heading}>
+                  {"\n"}
+                  {item.restaurant_name}
                 </Text>
                 <View style={styles.rec}>
                   <Image
@@ -231,9 +235,13 @@ const styles = StyleSheet.create({
   },
   friend_header: {
     marginLeft: 15,
-    fontSize: 10,
+    fontSize: 15,
     fontWeight: "bold",
-    // margin: 10,
+  },
+  user_heading: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginLeft: 15,
   },
   recCategories: {
     flexDirection: "row",
