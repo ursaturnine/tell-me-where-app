@@ -1,7 +1,7 @@
 # tell-me-where-app
 
 This app was created as a Capstone project for Ada Developers Academy by Tyrah Gullette and Liliana Parra (@lili4x4 on GitHub). 
-Tell Me Where is a mobile app for creating and finding restaurant recommendations to/from friends.
+Tell Me Where is a mobile app for sharing restaurant recommendations with friends.
 
 ## Feature Set
 
