@@ -7,7 +7,6 @@ import {
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
-  SectionList,
 } from "react-native";
 import InputForm from "../components/InputForm";
 import CustomButton from "../components/CustomButton";
@@ -29,10 +28,7 @@ const SearchScreen = ({}) => {
   //get friends ids
   const getFriendsIds = async () => {
     setIsLoading(true);
-    // if (recs) {
-    //   setRecs([]);
-    //   setTopRec("");
-    // }
+
     const resp = await tellMeWhereApi.get(`users/${userID}`);
     const friends = resp.data.user.friends.map((friend) => friend.id);
     getRecsByLocation(friends);
@@ -55,7 +51,6 @@ const SearchScreen = ({}) => {
 
     //recs list
     let recs_of_friends = [];
-    // recs_of_friends = await results
 
     const results = Promise.all(
       all_friends.map(async (friend) =>
@@ -227,14 +222,11 @@ const styles = StyleSheet.create({
     color: "#141414",
     fontWeight: "bold",
     marginTop: 40,
-    // marginBottom: 15,
   },
   textStyle: {
     fontSize: 30,
     color: "#141414",
     fontWeight: "bold",
-    // marginTop: 5,
-    // marginBottom: 5,
     textAlign: "center",
   },
   images: {

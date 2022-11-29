@@ -1,12 +1,4 @@
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  StyleSheet,
-  View,
-  Image,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
 import yelp from "../api/yelp";
 
 export default () => {

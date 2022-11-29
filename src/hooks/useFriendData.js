@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
 import tellMeWhereApi from "../api/tell-me-where-api";
-import { Text } from "react-native";
 import { AuthContext } from "../context/AuthContext";
 
 export default () => {
@@ -18,15 +17,7 @@ export default () => {
       setErrorMessage(`Tell Me Where Backend Api was not called:  ${err}`);
     }
   };
-  // const searchApi = async () => {
-  //   try {
-  //     const response = await tellmewhere.get("/users");
-  //     //list of dicts (users)
-  //     setUsers(response.data);
-  //   } catch (err) {
-  //     setErrorMessage(`Tell Me Where Backend Api was not called:  ${err}`);
-  //   }
-  // };
+
   //grab search results when first rendered
   useEffect(() => {
     getFriendsApi();
